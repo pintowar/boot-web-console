@@ -1,0 +1,9 @@
+plugins {
+    id "org.springframework.boot" version "1.5.17.RELEASE"
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-actuator"
+    compile project(":boot-web-console-core")
+}
