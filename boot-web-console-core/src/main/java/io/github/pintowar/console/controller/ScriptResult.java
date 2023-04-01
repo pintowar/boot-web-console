@@ -1,4 +1,4 @@
-package com.github.pintowar.console.controller;
+package io.github.pintowar.console.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.util.StringUtils;

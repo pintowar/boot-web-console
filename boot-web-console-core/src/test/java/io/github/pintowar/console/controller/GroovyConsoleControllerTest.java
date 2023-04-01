@@ -1,21 +1,21 @@
-package com.github.pintowar.console.controller;
+package io.github.pintowar.console.controller;
 
-import com.github.pintowar.console.controller.stage.GroovyConsoleControllerStage;
+import io.github.pintowar.console.controller.stage.GroovyConsoleControllerStage;
 import com.tngtech.jgiven.integration.spring.SimpleSpringScenarioTest;
-import org.junit.Assert;
-import org.junit.Test;
+//import org.junit.Assert;
+//import org.junit.Test;
 
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(webEnvironment = WebEnvironment.NONE)
 //@JGivenConfiguration(JGivenConfig.class)
 public class GroovyConsoleControllerTest extends SimpleSpringScenarioTest<GroovyConsoleControllerStage> {
 
-    private static final String GROOVY_CONSOLE_ENDPOINT = "/console/groovy";
+//    private static final String GROOVY_CONSOLE_ENDPOINT = "/console/groovy";
 
-    @Test
-    public void should_include_script_return_result_in_the_result_object() throws Exception {
-        Assert.assertTrue(true);
-    }
+//    @Test
+//    public void should_include_script_return_result_in_the_result_object() throws Exception {
+//        Assert.assertTrue(true);
+//    }
 
     /*@Test
     public void should_include_script_return_result_in_the_result_object() throws Exception {

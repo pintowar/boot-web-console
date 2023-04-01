@@ -1,4 +1,4 @@
-package com.github.pintowar.console.configuration;
+package io.github.pintowar.console.configuration;
 
 import com.tngtech.jgiven.config.AbstractJGivenConfiguration;
 import com.tngtech.jgiven.integration.spring.EnableJGiven;

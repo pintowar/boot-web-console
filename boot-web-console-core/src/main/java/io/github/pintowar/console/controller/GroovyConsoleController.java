@@ -1,4 +1,4 @@
-package com.github.pintowar.console.controller;
+package io.github.pintowar.console.controller;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -6,9 +6,7 @@ import groovy.transform.TimedInterrupt;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

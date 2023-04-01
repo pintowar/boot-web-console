@@ -1,6 +1,6 @@
-package com.github.pintowar.console.controller.stage;
+package io.github.pintowar.console.controller.stage;
 
-import com.github.pintowar.console.controller.GroovyConsoleController;
+import io.github.pintowar.console.controller.GroovyConsoleController;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.BeforeStage;
 import com.tngtech.jgiven.annotation.Quoted;
