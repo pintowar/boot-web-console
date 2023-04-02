@@ -15,4 +15,5 @@ dependencies {
 
     implementation(libs.gradleplugin.sonarqube)
     implementation(libs.gradleplugin.release)
+    implementation(libs.gradleplugin.node)
 }

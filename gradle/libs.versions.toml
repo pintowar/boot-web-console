@@ -1,6 +1,7 @@
 [versions]
 boot-gradle = "2.4.3"
 management-gradle = "1.0.11.RELEASE"
+node = "3.1.1"
 
 groovy = "4.0.11"
 jgiven = "0.15.3"
@@ -8,6 +9,7 @@ jgiven = "0.15.3"
 [libraries]
 gradleplugin-boot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "boot-gradle" }
 gradleplugin-management = { module = "io.spring.gradle:dependency-management-plugin", version.ref = "management-gradle" }
+gradleplugin-node = { module = "com.github.node-gradle:gradle-node-plugin", version.ref = "node" }
 
 gradleplugin-release = { module = "net.researchgate:gradle-release", version = "2.8.1" }
 gradleplugin-sonarqube = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version = "4.0.0.2929" }

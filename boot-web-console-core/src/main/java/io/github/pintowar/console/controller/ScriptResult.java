@@ -1,6 +1,7 @@
 package io.github.pintowar.console.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import groovy.lang.GString;
 import org.springframework.util.StringUtils;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -27,10 +28,8 @@ final class ScriptResult {
 
     static ScriptResult create(Object result, String output) {
         ScriptResult scriptletResult = new ScriptResult();
-        scriptletResult.result = result;
-        if (StringUtils.hasLength(output)) {
-            scriptletResult.output = output.split(System.lineSeparator());
-        }
+        scriptletResult.result = result != null ? result.toString() : null;
+        scriptletResult.output = StringUtils.hasLength(output) ? output.split(System.lineSeparator()) : new String[]{};
         return scriptletResult;
     }
 }

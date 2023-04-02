@@ -2,6 +2,7 @@ body {
   background-color: #4d4d4d;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .blockUI {
@@ -53,4 +54,27 @@ body {
   font-size: 12px;
   color: #fff;
   padding: 6px;
+}
+
+.result-output {
+  /* height: 300px; */
+  height: calc(100vh - 364px);
+  color: white;
+  background-color: #282c34;
+  overflow-y: auto;
+}
+
+.result-output .loading {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-output .result {
+  color: #528bff;
+}
+
+.result-output .output {
+  color: #abb2bf;
 }
