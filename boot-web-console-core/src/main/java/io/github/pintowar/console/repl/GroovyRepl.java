@@ -1,4 +1,4 @@
-package io.github.pintowar.console.controller;
+package io.github.pintowar.console.repl;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
@@ -6,12 +6,13 @@ import groovy.transform.TimedInterrupt;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
-import org.springframework.context.ApplicationContext;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,11 +24,10 @@ public class GroovyRepl {
     private static final List<String> RECEIVERS_BLACK_LIST = Stream.of(System.class, Thread.class)
             .map(Class::getName)
             .collect(Collectors.toList());
+    private final Map<String, Object> bindings;
 
-    private final ApplicationContext applicationContext;
-
-    public GroovyRepl(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+    public GroovyRepl(Map<String, Object> bindings) {
+        this.bindings = Collections.unmodifiableMap(bindings);
     }
 
     public ScriptResult execute(String script) {
@@ -45,7 +45,12 @@ public class GroovyRepl {
 
     private Binding createBinding(OutputStream outputStream) {
         Binding binding = new Binding();
-        binding.setVariable("applicationContext", applicationContext);
+        bindings.forEach((k, v) -> {
+            if (!k.equals("out")) {
+                binding.setVariable(k, v);
+            }
+        });
+
         binding.setProperty("out", new PrintStream(outputStream, true));
         return binding;
     }

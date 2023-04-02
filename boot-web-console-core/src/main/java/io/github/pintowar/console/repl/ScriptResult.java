@@ -1,11 +1,8 @@
-package io.github.pintowar.console.controller;
+package io.github.pintowar.console.repl;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import groovy.lang.GString;
 import org.springframework.util.StringUtils;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-final class ScriptResult {
+public final class ScriptResult {
 
     private String[] output;
     private Object result;
@@ -21,7 +18,7 @@ final class ScriptResult {
         return result;
     }
 
-    static ScriptResult create(Throwable throwable) {
+    public static ScriptResult create(Throwable throwable) {
         String message = throwable.getMessage() == null ? throwable.getClass().getName() : throwable.getMessage();
         return create(null, message);
     }

@@ -17,6 +17,10 @@
   let scriptBody = "";
   let evalResult: ScriptResult = null;
 
+  const samplePath = (file: string) => {
+    return `${import.meta.env.BASE_URL}/samples/${file}`
+  }
+
   const sampleSelect = () => {
     sample && fetch(sample)
     .then(response => response.text())
@@ -59,14 +63,14 @@
     <img src={consoleLogo} alt="console-logo" />
     <span class="title">Edit code</span>
     <button id="send-button" type="button" on:click={remoteEval}>&#9654; Execute</button>
-    <button id="permalink-button" type="button">&#128279; Permalink</button>
+    
     <span class="pulled-right">
       <label for="input-code-example-select">Example:</label>
       <select id="input-code-example-select" bind:value={sample} on:change={sampleSelect}>
         <option value="" selected>---</option>
-        <option value="/samples/get-environment-info.groovy">Get environment info</option>
-        <option value="/samples/list-spring-beans.groovy">List all spring beans</option>
-        <option value="/samples/is-it-friday.groovy">Is it friday?</option>
+        <option value={samplePath("get-environment-info.groovy")}>Get environment info</option>
+        <option value={samplePath("list-spring-beans.groovy")}>List all spring beans</option>
+        <option value={samplePath("is-it-friday.groovy")}>Is it friday?</option>
       </select>
     </span>
   </div>

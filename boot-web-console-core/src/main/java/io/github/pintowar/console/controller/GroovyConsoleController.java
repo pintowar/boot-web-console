@@ -1,9 +1,12 @@
 package io.github.pintowar.console.controller;
 
+import io.github.pintowar.console.repl.GroovyRepl;
+import io.github.pintowar.console.repl.ScriptResult;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -16,7 +19,7 @@ public class GroovyConsoleController {
     private GroovyRepl repl;
 
     public GroovyConsoleController(ApplicationContext applicationContext) {
-        this.repl = new GroovyRepl(applicationContext);
+        this.repl = new GroovyRepl(Collections.singletonMap("applicationContext", applicationContext));
     }
 
     /**
@@ -38,7 +41,8 @@ public class GroovyConsoleController {
     @PostMapping(value = "/groovy")
     @ResponseBody
     public CompletableFuture<ScriptResult> execute(@RequestParam String script) {
-        return CompletableFuture.supplyAsync(() -> repl.execute(script))
+        return CompletableFuture
+                .supplyAsync(() -> repl.execute(script))
                 .exceptionally(ScriptResult::create);
     }
 

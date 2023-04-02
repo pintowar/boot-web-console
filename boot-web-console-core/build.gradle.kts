@@ -11,6 +11,23 @@ dependencies {
     testImplementation(libs.boot.test) {
         exclude(module = "commons-logging")
     }
-    testImplementation(libs.jgiven.junit)
-    testImplementation(libs.jgiven.spring)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+tasks.processResources {
+    val webCli = ":boot-web-console-webcli"
+    dependsOn("$webCli:build")
+
+    doLast {
+        val origin = project(webCli).buildDir.absolutePath
+        val dest = "${project.buildDir.absolutePath}/resources/main/public/console"
+        copy {
+            from(origin)
+            into(dest)
+        }
+        logger.quiet("Cli Resources: move from $origin to $dest")
+    }
 }
