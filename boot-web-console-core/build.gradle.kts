@@ -1,5 +1,6 @@
 plugins {
     id("boot-web-console.base")
+    id("boot-web-console.publish")
     id("java-library")
 }
 
