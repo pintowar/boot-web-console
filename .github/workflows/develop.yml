@@ -36,4 +36,4 @@ jobs:
           SONATYPE_PASS: ${{ secrets.SONATYPE_PASS }}
         with:
           gradle-version: wrapper
-          arguments: clean :boot-web-console-core:codeCoverageReport :boot-web-console-core:sonar :boot-web-console-core:publishAllPublicationsToSonatypeRepository
+          arguments: clean codeCoverageReport :boot-web-console-core:sonar :boot-web-console-core:publishAllPublicationsToSonatypeRepository
