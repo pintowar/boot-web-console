@@ -7,6 +7,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Collections;
 
@@ -57,14 +59,14 @@ class GroovyReplTest {
     }
 
     @Test
-    public void shouldIncludeApplicationContextInBoundVariables() {
+    void shouldIncludeApplicationContextInBoundVariables() {
         ScriptResult result = repl.execute("applicationContext != null");
         assertEquals("true", result.getResult());
         Assertions.assertArrayEquals(Arrays.array(), result.getOutput());
     }
 
     @Test
-    public void shouldWrapExceptionWhenExceptionIsThrown() {
+    void shouldWrapExceptionWhenExceptionIsThrown() {
         RuntimeException thrown = assertThrows(RuntimeException.class, () ->
                 repl.execute("throw new RuntimeException('test')")
         );
@@ -72,30 +74,18 @@ class GroovyReplTest {
         assertEquals("test", thrown.getMessage());
     }
 
-    @Test
-    void shouldThrowExceptionWhenUsingThreadMethods() {
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "Thread.sleep(500); 2 + 3",
+            "System.exit(0); 2 + 3",
+            "2 <!> 3"
+    })
+    void shouldThrowException(String script) {
         MultipleCompilationErrorsException thrown = assertThrows(MultipleCompilationErrorsException.class, () ->
-                repl.execute("Thread.sleep(500); 2 + 3")
+                repl.execute(script)
         );
 
         assertTrue(thrown.getMessage().startsWith("startup failed:"));
     }
 
-    @Test
-    void shouldThrowExceptionWhenUsingSystemMethods() {
-        MultipleCompilationErrorsException thrown = assertThrows(MultipleCompilationErrorsException.class, () ->
-                repl.execute("System.exit(0); 2 + 3")
-        );
-
-        assertTrue(thrown.getMessage().startsWith("startup failed:"));
-    }
-
-    @Test
-    void shouldThrowExceptionWhenScriptCompilationFails() {
-        MultipleCompilationErrorsException thrown = assertThrows(MultipleCompilationErrorsException.class, () ->
-                repl.execute("2 <!> 3")
-        );
-
-        assertTrue(thrown.getMessage().startsWith("startup failed:"));
-    }
 }
