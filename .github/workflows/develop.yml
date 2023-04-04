@@ -1,0 +1,39 @@
+name: SudoScan Develop CI
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - 'develop'
+
+env:
+  JAVA_VERSION: '11'
+  JAVA_DISTRO: 'adopt'
+
+jobs:
+  gradle_dev_build:
+    name: Gradle Dev Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRO }}
+
+      - name: Running gradle task
+        uses: gradle/gradle-build-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
+          SONATYPE_PASS: ${{ secrets.SONATYPE_PASS }}
+        with:
+          gradle-version: wrapper
+          arguments: clean :boot-web-console-core:codeCoverageReport :boot-web-console-core:sonar :boot-web-console-core:publishAllPublicationsToSonatypeRepository

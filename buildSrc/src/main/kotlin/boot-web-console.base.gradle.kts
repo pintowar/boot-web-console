@@ -1,7 +1,7 @@
 import org.gradle.api.JavaVersion
 
 plugins {
-    java
+    `java-library`
     id("jacoco")
     id("idea")
 }
