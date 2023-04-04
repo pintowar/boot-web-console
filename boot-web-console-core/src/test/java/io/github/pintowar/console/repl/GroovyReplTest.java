@@ -1,5 +1,6 @@
 package io.github.pintowar.console.repl;
 
+import io.github.pintowar.console.repl.impl.GroovyRepl;
 import org.assertj.core.util.Arrays;
 import org.codehaus.groovy.control.MultipleCompilationErrorsException;
 import org.junit.jupiter.api.AfterEach;

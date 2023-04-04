@@ -23,7 +23,7 @@ public final class ScriptResult {
         return create(null, message);
     }
 
-    static ScriptResult create(Object result, String output) {
+    public static ScriptResult create(Object result, String output) {
         ScriptResult scriptletResult = new ScriptResult();
         scriptletResult.result = result != null ? result.toString() : null;
         scriptletResult.output = StringUtils.hasLength(output) ? output.split(System.lineSeparator()) : new String[]{};

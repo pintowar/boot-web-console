@@ -1,8 +1,10 @@
-package io.github.pintowar.console.repl;
+package io.github.pintowar.console.repl.impl;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 import groovy.transform.TimedInterrupt;
+import io.github.pintowar.console.repl.Repl;
+import io.github.pintowar.console.repl.ScriptResult;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
@@ -18,7 +20,7 @@ import java.util.stream.Stream;
 
 import static java.util.Collections.singletonMap;
 
-public class GroovyRepl {
+public class GroovyRepl implements Repl {
 
     private static final long SCRIPT_TIMEOUT_IN_SECONDS = 5;
     private static final List<String> RECEIVERS_BLACK_LIST = Stream.of(System.class, Thread.class)
