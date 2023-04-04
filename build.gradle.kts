@@ -58,6 +58,7 @@ sonarqube {
         property("sonar.verbose", true)
         property("sonar.github.repository", "pintowar/boot-web-console")
         property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/codeCoverageReport.xml")
+        property("sonar.exclusions", "**/sample/*.java")
     }
 }
 
