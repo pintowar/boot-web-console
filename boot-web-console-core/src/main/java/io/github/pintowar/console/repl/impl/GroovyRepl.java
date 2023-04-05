@@ -9,9 +9,9 @@ import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -33,19 +33,22 @@ public class GroovyRepl implements Repl {
     }
 
     public ScriptResult execute(String script) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        GroovyShell groovyShell = createGroovyShell(out);
-        Object result = groovyShell.evaluate(script);
-        return ScriptResult.create(result, out.toString());
+        try (StringWriter writer = new StringWriter()) {
+            GroovyShell groovyShell = createGroovyShell(writer);
+            Object result = groovyShell.evaluate(script);
+            return ScriptResult.create(result, writer.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private GroovyShell createGroovyShell(OutputStream outputStream) {
+    private GroovyShell createGroovyShell(Writer writer) {
         CompilerConfiguration configuration = createCompilerConfiguration();
-        Binding binding = createBinding(outputStream);
+        Binding binding = createBinding(writer);
         return new GroovyShell(binding, configuration);
     }
 
-    private Binding createBinding(OutputStream outputStream) {
+    private Binding createBinding(Writer writer) {
         Binding binding = new Binding();
         bindings.forEach((k, v) -> {
             if (!k.equals("out")) {
@@ -53,7 +56,7 @@ public class GroovyRepl implements Repl {
             }
         });
 
-        binding.setProperty("out", new PrintStream(outputStream, true));
+        binding.setProperty("out", writer);
         return binding;
     }
 
