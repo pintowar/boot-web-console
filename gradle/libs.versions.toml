@@ -13,7 +13,6 @@ gradleplugin-node = { module = "com.github.node-gradle:gradle-node-plugin", vers
 gradleplugin-release = { module = "net.researchgate:gradle-release", version = "3.0.2" }
 gradleplugin-sonarqube = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version = "4.0.0.2929" }
 
-groovy = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
 groovy-jsr223 = { module = "org.apache.groovy:groovy-jsr223", version.ref = "groovy" }
 boot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "boot-gradle" }
 boot-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "boot-gradle" }

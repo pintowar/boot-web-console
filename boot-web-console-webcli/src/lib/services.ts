@@ -6,7 +6,7 @@ type EngineEvalArgs = {
 }
 
 export const engineEval = ({engine, data, onSuccess, onFinally}: EngineEvalArgs) => {
-    return fetch(`/console/${engine}`, { method: "POST", body: data })
+    return fetch(`/console/${engine}/eval`, { method: "POST", body: data })
         .then(response => response.json())
         .then(onSuccess)
         .finally(onFinally);

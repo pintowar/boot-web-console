@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import consoleLogo from './assets/console.png'
   import CodeMirror from "svelte-codemirror-editor";
-  import { groovy } from "./lib/groovy";
+  import { groovy } from "./lib/langs";
   import { engineEval, listEngines } from "./lib/services";
   import { oneDark } from "@codemirror/theme-one-dark";
   import { keymap } from "@codemirror/view"
@@ -33,6 +33,17 @@
   const samplePath = (file: string) => {
     const basePath = import.meta.env.DEV ? "" : import.meta.env.BASE_URL;
     return `${basePath}/samples/${file}`;
+  }
+
+  const listSamples = (engine: string) => {
+    const samples = {
+      "get-environment-info" : "Get environment info",
+      "list-spring-beans" : "List all spring beans",
+      "is-it-friday" : "Is it friday?"
+    }
+    return Object.keys(samples).map(key => ({
+      value: samplePath(`${key}.${engine}`), desc: samples[key]
+    }));
   }
 
   const sampleSelect = () => {
@@ -85,9 +96,9 @@
       <label for="input-code-example-select">Example:</label>
       <select id="input-code-example-select" bind:value={sample} on:change={sampleSelect}>
         <option value="" selected>---</option>
-        <option value={samplePath("get-environment-info.groovy")}>Get environment info</option>
-        <option value={samplePath("list-spring-beans.groovy")}>List all spring beans</option>
-        <option value={samplePath("is-it-friday.groovy")}>Is it friday?</option>
+        {#each listSamples(engine) as sample}
+          <option value={sample.value}>{sample.desc}</option>
+        {/each}
       </select>
     </span>
   </div>

@@ -50,10 +50,10 @@ public class GroovyConsoleController {
      * @param script the groovy script
      * @return the result object
      */
-    @PostMapping(value = "/groovy", produces="application/json")
+    @PostMapping(value = "/{engine}/eval", produces="application/json")
     @ResponseBody
-    public CompletableFuture<ScriptResult> execute(@RequestParam String script) {
-        Repl repl = repls.get("groovy");
+    public CompletableFuture<ScriptResult> execute(@PathVariable String engine, @RequestParam String script) {
+        Repl repl = repls.get(engine);
         return CompletableFuture
                 .supplyAsync(() -> repl.execute(script, singletonMap("applicationContext", applicationContext)))
                 .exceptionally(ScriptResult::create);
