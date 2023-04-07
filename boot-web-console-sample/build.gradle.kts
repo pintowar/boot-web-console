@@ -8,5 +8,5 @@ plugins {
 dependencies {
     implementation(libs.boot.actuator)
     implementation(libs.boot.web)
-    implementation(project(":boot-web-console-core"))
+    implementation(project(":boot-web-console-groovy"))
 }

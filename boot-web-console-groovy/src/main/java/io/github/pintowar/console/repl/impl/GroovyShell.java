@@ -1,16 +1,14 @@
 package io.github.pintowar.console.repl.impl;
 
 import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import groovy.transform.TimedInterrupt;
-import io.github.pintowar.console.repl.Repl;
+import io.github.pintowar.console.repl.BaseRepl;
 import io.github.pintowar.console.repl.ScriptResult;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.MultipleCompilationErrorsException;
 import org.codehaus.groovy.control.customizers.ASTTransformationCustomizer;
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer;
 
-import javax.script.ScriptException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -21,25 +19,33 @@ import java.util.stream.Stream;
 
 import static java.util.Collections.singletonMap;
 
-public class GroovyRepl extends Repl {
+public class GroovyShell extends BaseRepl {
 
     private static final long SCRIPT_TIMEOUT_IN_SECONDS = 5;
     private static final List<String> RECEIVERS_BLACK_LIST = Stream.of(System.class, Thread.class)
             .map(Class::getName)
             .collect(Collectors.toList());
 
-    public GroovyRepl(Map<String, Object> bindings) {
+    public GroovyShell() {
+        super();
+    }
+
+    public GroovyShell(Map<String, Object> bindings) {
         super(bindings);
     }
 
+    @Override
+    public String getEngineName() {
+        return "groovy";
+    }
+
     public ScriptResult execute(String script) {
-//        return groovyShellExecute(script);
-        return executeJsr223("groovy", script);
+        return groovyShellExecute(script);
     }
 
     private ScriptResult groovyShellExecute(String script) {
         try (StringWriter writer = new StringWriter()) {
-            GroovyShell groovyShell = createGroovyShell(writer);
+            groovy.lang.GroovyShell groovyShell = createGroovyShell(writer);
             Object result = groovyShell.evaluate(script);
             return ScriptResult.create(result, writer.toString());
         } catch (IOException e) {
@@ -49,15 +55,15 @@ public class GroovyRepl extends Repl {
         }
     }
 
-    private GroovyShell createGroovyShell(Writer writer) {
+    private groovy.lang.GroovyShell createGroovyShell(Writer writer) {
         CompilerConfiguration configuration = createCompilerConfiguration();
         Binding binding = createBinding(writer);
-        return new GroovyShell(binding, configuration);
+        return new groovy.lang.GroovyShell(binding, configuration);
     }
 
     private Binding createBinding(Writer writer) {
         Binding binding = new Binding();
-        bindings.forEach((k, v) -> {
+        defaultBindings.forEach((k, v) -> {
             if (!k.equals("out")) {
                 binding.setVariable(k, v);
             }

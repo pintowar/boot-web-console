@@ -1,39 +1,22 @@
 package io.github.pintowar.console.repl;
 
-import javax.script.*;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.ServiceLoader;
 
-public abstract class Repl {
+public interface Repl {
 
-    private final ScriptEngineManager manager = new ScriptEngineManager();
-    protected final Map<String, Object> bindings;
-
-    public Repl(Map<String, Object> bindings) {
-        this.bindings = Collections.unmodifiableMap(bindings);
+    static Map<String, Repl> getNamedRepls() {
+        Map<String, Repl> repls = new HashMap<>();
+        ServiceLoader.load(Repl.class).iterator().forEachRemaining(it -> {
+            repls.put(it.getEngineName(), it);
+        });
+        return repls;
     }
 
-    public ScriptResult executeJsr223(String engineName, String script) {
-        try (StringWriter writer = new StringWriter()) {
-            ScriptEngine engine = manager.getEngineByName(engineName);
+    ScriptResult execute(String script);
 
-            ScriptContext context = engine.getContext();
-            context.setWriter(writer);
-            context.setBindings(new SimpleBindings(bindings), ScriptContext.ENGINE_SCOPE);
+    ScriptResult execute(String script, Map<String, Object> bindings);
 
-            Object result = engine.eval(script);
-            return ScriptResult.create(result, writer.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ScriptException e) {
-            Throwable cause = e.getCause();
-            Throwable topCause = cause != null ? cause.getCause() : null;
-            throw new IllegalArgumentException(topCause != null ? topCause.getMessage() : e.getMessage(), e);
-        }
-    }
-
-    public abstract ScriptResult execute(String script);
-
+    String getEngineName();
 }
