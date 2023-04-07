@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import consoleLogo from './assets/console.png'
   import CodeMirror from "svelte-codemirror-editor";
   import { groovy } from "./lib/groovy";
+  import { engineEval, listEngines } from "./lib/services";
   import { oneDark } from "@codemirror/theme-one-dark";
   import { keymap } from "@codemirror/view"
   import { SyncLoader } from 'svelte-loading-spinners';
@@ -11,14 +13,26 @@
     result: string
   }
 
+  const NO_ENGINE = "no-engine";
+
   let sample = ""
+  let engines: string[] = []
+  let engine: string = NO_ENGINE
 
   let isEvaluating = false;
   let scriptBody = "";
   let evalResult: ScriptResult = null;
 
+  onMount(async () => {
+    await listEngines(resp => engines = resp.length > 0 ? resp : [NO_ENGINE]);
+    if (engines.length == 1) {
+      engine = engines[0];
+    }
+  })
+
   const samplePath = (file: string) => {
-    return `${import.meta.env.BASE_URL}/samples/${file}`
+    const basePath = import.meta.env.DEV ? "" : import.meta.env.BASE_URL;
+    return `${basePath}/samples/${file}`;
   }
 
   const sampleSelect = () => {
@@ -34,10 +48,12 @@
       data.append('script', scriptBody);
 
       isEvaluating = true;
-      fetch("/console/groovy", { method: "POST", body: data })
-      .then(response => response.json())
-      .then(response => evalResult = response)
-      .finally(() => isEvaluating = false);
+      engineEval({
+        engine,
+        data,
+        onSuccess: (response) => evalResult = response,
+        onFinally: () => isEvaluating = false
+      })
     }
   };
 
@@ -62,6 +78,7 @@
     
     <img src={consoleLogo} alt="console-logo" />
     <span class="title">Edit code</span>
+    <span class="engine">Engine: {engine}</span>
     <button id="send-button" type="button" on:click={remoteEval}>&#9654; Execute</button>
     
     <span class="pulled-right">

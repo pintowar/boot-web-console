@@ -3,12 +3,14 @@ package io.github.pintowar.console.controller;
 import io.github.pintowar.console.repl.Repl;
 import io.github.pintowar.console.repl.ScriptResult;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static java.util.Collections.singletonMap;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -36,13 +38,19 @@ public class GroovyConsoleController {
         return "redirect:/console/index.html";
     }
 
+    @GetMapping(value = "/engines", produces="application/json")
+    public ResponseEntity<Set<String>> engines() {
+        Set<String> engines = repls.keySet();
+        return ResponseEntity.ok(engines);
+    }
+
     /**
      * Executes the given groovy script
      *
      * @param script the groovy script
      * @return the result object
      */
-    @PostMapping(value = "/groovy")
+    @PostMapping(value = "/groovy", produces="application/json")
     @ResponseBody
     public CompletableFuture<ScriptResult> execute(@RequestParam String script) {
         Repl repl = repls.get("groovy");
