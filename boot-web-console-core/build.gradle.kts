@@ -6,12 +6,6 @@ plugins {
 
 dependencies {
     compileOnly(libs.boot.web)
-    implementation(libs.groovy)
-
-    testImplementation(libs.boot.web)
-    testImplementation(libs.boot.test) {
-        exclude(module = "commons-logging")
-    }
 }
 
 tasks.withType<Test> {

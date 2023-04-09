@@ -1,7 +1,5 @@
 package io.github.pintowar.console.repl;
 
-import org.springframework.util.StringUtils;
-
 public final class ScriptResult {
 
     private String[] output;
@@ -26,7 +24,8 @@ public final class ScriptResult {
     public static ScriptResult create(Object result, String output) {
         ScriptResult scriptletResult = new ScriptResult();
         scriptletResult.result = result != null ? result.toString() : null;
-        scriptletResult.output = StringUtils.hasLength(output) ? output.split(System.lineSeparator()) : new String[]{};
+        boolean hasLength = output != null && !output.isEmpty();
+        scriptletResult.output = hasLength ? output.split(System.lineSeparator()) : new String[]{};
         return scriptletResult;
     }
 }

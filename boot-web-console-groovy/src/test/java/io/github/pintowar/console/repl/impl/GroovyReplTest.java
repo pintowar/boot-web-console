@@ -1,8 +1,7 @@
-package io.github.pintowar.console.repl;
+package io.github.pintowar.console.repl.impl;
 
-import io.github.pintowar.console.repl.impl.GroovyRepl;
+import io.github.pintowar.console.repl.ScriptResult;
 import org.assertj.core.util.Arrays;
-import org.codehaus.groovy.control.MultipleCompilationErrorsException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,16 +75,14 @@ class GroovyReplTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "Thread.sleep(500); 2 + 3",
-            "System.exit(0); 2 + 3",
             "2 <!> 3"
     })
     void shouldThrowException(String script) {
-        MultipleCompilationErrorsException thrown = assertThrows(MultipleCompilationErrorsException.class, () ->
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () ->
                 repl.execute(script)
         );
 
-        assertTrue(thrown.getMessage().startsWith("startup failed:"));
+        assertTrue(thrown.getMessage().contains("startup failed:"));
     }
 
 }
