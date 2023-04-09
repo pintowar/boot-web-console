@@ -3,7 +3,9 @@ boot-gradle = "2.4.3"
 management-gradle = "1.0.11.RELEASE"
 node = "3.1.1"
 
+junit = "5.9.2"
 groovy = "4.0.11"
+assertj = "3.24.2"
 
 [libraries]
 gradleplugin-boot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "boot-gradle" }
@@ -16,4 +18,11 @@ gradleplugin-sonarqube = { module = "org.sonarsource.scanner.gradle:sonarqube-gr
 groovy-jsr223 = { module = "org.apache.groovy:groovy-jsr223", version.ref = "groovy" }
 boot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "boot-gradle" }
 boot-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "boot-gradle" }
-boot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "boot-gradle" }
+
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+
+[bundles]
+tests = ["junit-engine", "junit-params", "assertj-core"]
