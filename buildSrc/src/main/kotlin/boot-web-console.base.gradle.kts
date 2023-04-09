@@ -15,8 +15,13 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
     }
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+val catalogs = extensions.getByType<VersionCatalogsExtension>()
+val libs = catalogs.named("libs")
+
+dependencies {
+    testImplementation(libs.findBundle("tests").get())
 }
 
 tasks {

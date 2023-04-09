@@ -32,7 +32,7 @@ tasks {
         dependsOn(npmInstall)
         group = "test"
         description = "e2e test"
-        args.set(listOf("run", "e2e"))
+        args.set(listOf("run", "check"))
     }
 
     register<Delete>("clean") {
