@@ -70,5 +70,5 @@ configure<ReleaseExtension> {
 }
 
 tasks.afterReleaseBuild {
-    dependsOn(":boot-web-console-core:publish")
+    dependsOn(":boot-web-console-api:publish")
 }

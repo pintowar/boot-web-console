@@ -4,6 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":boot-web-console-core"))
+    implementation(project(":boot-web-console-api"))
     api(libs.groovy.jsr223)
 }
