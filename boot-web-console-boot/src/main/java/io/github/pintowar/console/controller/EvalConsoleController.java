@@ -14,24 +14,24 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Controller for evaluating scripts from groovy console.
+ * Controller for evaluating scripts from web console.
  */
 @Controller
 @RequestMapping("/console")
-public class GroovyConsoleController {
+public class EvalConsoleController {
 
     private Map<String, Repl> repls;
 
     private ApplicationContext applicationContext;
-    public GroovyConsoleController(ApplicationContext applicationContext) {
+    public EvalConsoleController(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         this.repls = Repl.getNamedRepls();
     }
 
     /**
-     * Redirects to groovy console index page.
+     * Redirects to console index page.
      *
-     * @return the redirect view of groovy console index page
+     * @return the redirect view of console index page
      */
     @GetMapping
     public String index() {
@@ -45,9 +45,9 @@ public class GroovyConsoleController {
     }
 
     /**
-     * Executes the given groovy script
+     * Executes the given script
      *
-     * @param script the groovy script
+     * @param script the script
      * @return the result object
      */
     @PostMapping(value = "/{engine}/eval", produces="application/json")
