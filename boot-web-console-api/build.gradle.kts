@@ -4,10 +4,6 @@ plugins {
     id("java-library")
 }
 
-dependencies {
-    compileOnly(libs.boot.web)
-}
-
 tasks.processResources {
     val webCli = ":boot-web-console-webcli"
     dependsOn("$webCli:build")
