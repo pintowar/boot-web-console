@@ -61,8 +61,7 @@ body {
 }
 
 .result-output {
-  /* height: 300px; */
-  height: calc(100vh - 364px);
+    height: calc(100vh - 364px);
   color: white;
   background-color: #282c34;
   overflow-y: auto;
@@ -79,6 +78,10 @@ body {
   color: #528bff;
 }
 
-.result-output .output {
+.result-output .stdout {
   color: #abb2bf;
+}
+
+.result-output .stderr {
+  color: red;
 }

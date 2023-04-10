@@ -2,16 +2,15 @@
   import { onMount } from 'svelte';
   import consoleLogo from './assets/console.png'
   import CodeMirror from "svelte-codemirror-editor";
-  import { groovy } from "./lib/langs";
-  import { engineEval, listEngines } from "./lib/services";
+    
   import { oneDark } from "@codemirror/theme-one-dark";
   import { keymap } from "@codemirror/view"
   import { SyncLoader } from 'svelte-loading-spinners';
+
+  import { groovy } from "./lib/langs";
+  import { engineEval, listEngines } from "./lib/services";
+  import type { ScriptResult } from "./lib/interfaces";  
   
-  interface ScriptResult {
-    output: string[]
-    result: string
-  }
 
   const NO_ENGINE = "no-engine";
 
@@ -123,13 +122,18 @@
     {/if}
     {#if !isEvaluating && evalResult}
       <div>
-        {#each evalResult.output as out}
-          <div class="output">{out}</div>
-        {/each}
+        {#if evalResult?.stdout}
+          <pre class="stdout">{evalResult.stdout.join('\n')}</pre>
+        {/if}
+      </div>
+      <div>
+        {#if evalResult?.stderr}
+          <pre class="stderr">{evalResult.stderr.join('\n')}</pre>
+        {/if}
       </div>
       {#if evalResult.result}
         <div class="result">
-          Result = {evalResult.result}
+          Result: <pre>{evalResult.result}</pre>
         </div>
       {/if}
     {/if}

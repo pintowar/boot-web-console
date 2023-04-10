@@ -31,7 +31,7 @@ class GroovyReplTest {
         ScriptResult result = repl.execute("2 + 3");
 
         assertEquals("5", result.getResult());
-        assertArrayEquals(Arrays.array(), result.getOutput());
+        assertArrayEquals(Arrays.array(), result.getStdout());
     }
 
     @Test
@@ -39,7 +39,7 @@ class GroovyReplTest {
         ScriptResult result = repl.execute("println 2 + 3");
 
         assertNull(result.getResult());
-        assertArrayEquals(Arrays.array("5"), result.getOutput());
+        assertArrayEquals(Arrays.array("5"), result.getStdout());
     }
 
     @Test
@@ -47,7 +47,7 @@ class GroovyReplTest {
         ScriptResult result = repl.execute("println('test'); 2 + 3");
 
         assertEquals("5", result.getResult());
-        assertArrayEquals(Arrays.array("test"), result.getOutput());
+        assertArrayEquals(Arrays.array("test"), result.getStdout());
     }
 
     @Test
@@ -61,7 +61,7 @@ class GroovyReplTest {
     void shouldIncludeApplicationContextInBoundVariables() {
         ScriptResult result = repl.execute("applicationContext != null");
         assertEquals("true", result.getResult());
-        Assertions.assertArrayEquals(Arrays.array(), result.getOutput());
+        Assertions.assertArrayEquals(Arrays.array(), result.getStdout());
     }
 
     @Test

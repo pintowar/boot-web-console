@@ -1,15 +1,33 @@
 package io.github.pintowar.console.repl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
 public final class ScriptResult {
 
-    private String[] output;
+    private String[] stdout;
+    private String[] stderr;
     private Object result;
 
     private ScriptResult() {
     }
 
-    public String[] getOutput() {
-        return output;
+    public ScriptResult(Object result, String[] stdout) {
+        this.result = result;
+        this.stdout = stdout;
+    }
+
+    public ScriptResult(String[] stderr) {
+        this.stderr = stderr;
+    }
+
+    public String[] getStdout() {
+        return stdout;
+    }
+
+    public String[] getStderr() {
+        return stderr;
     }
 
     public Object getResult() {
@@ -17,15 +35,20 @@ public final class ScriptResult {
     }
 
     public static ScriptResult create(Throwable throwable) {
-        String message = throwable.getMessage() == null ? throwable.getClass().getName() : throwable.getMessage();
-        return create(null, message);
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            throwable.printStackTrace(new PrintStream(baos, true));
+            String[] err = baos.toString().split(System.lineSeparator());
+            return new ScriptResult(err);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static ScriptResult create(Object result, String output) {
-        ScriptResult scriptletResult = new ScriptResult();
-        scriptletResult.result = result != null ? result.toString() : null;
         boolean hasLength = output != null && !output.isEmpty();
-        scriptletResult.output = hasLength ? output.split(System.lineSeparator()) : new String[]{};
-        return scriptletResult;
+        return new ScriptResult(
+                result != null ? result.toString() : null,
+                hasLength ? output.split(System.lineSeparator()) : new String[]{}
+        );
     }
 }
