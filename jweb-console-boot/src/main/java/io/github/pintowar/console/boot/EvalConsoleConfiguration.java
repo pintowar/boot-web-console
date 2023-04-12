@@ -11,7 +11,7 @@ import static org.springframework.web.servlet.function.RequestPredicates.path;
 import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 @Configuration
-@ConditionalOnProperty(value = "web.console.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "jweb.console.enabled", havingValue = "true")
 public class EvalConsoleConfiguration {
 
     @Bean

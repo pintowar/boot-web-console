@@ -1,5 +1,5 @@
 plugins {
-    id("boot-web-console.base")
+    id("jweb-console.base")
     `maven-publish`
 }
 

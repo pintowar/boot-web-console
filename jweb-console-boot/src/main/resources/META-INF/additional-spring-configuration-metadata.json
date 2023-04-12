@@ -1,7 +1,7 @@
 {
   "properties": [
     {
-      "name": "web.console.enabled",
+      "name": "jweb.console.enabled",
       "type": "java.lang.Boolean",
       "description": "Enables or disables the web console."
     }

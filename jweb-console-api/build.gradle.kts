@@ -1,11 +1,10 @@
 plugins {
-    id("boot-web-console.base")
-    id("boot-web-console.publish")
+    id("jweb-console.publish")
     id("java-library")
 }
 
 tasks.processResources {
-    val webCli = ":boot-web-console-webcli"
+    val webCli = ":jweb-console-webcli"
     dependsOn("$webCli:build")
 
     doLast {

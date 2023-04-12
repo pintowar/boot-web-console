@@ -1,5 +1,3 @@
-import org.gradle.api.JavaVersion
-
 plugins {
     `java-library`
     id("jacoco")

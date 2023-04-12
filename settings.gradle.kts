@@ -1,5 +1,5 @@
-rootProject.name = "boot-web-console"
+rootProject.name = "jweb-console"
 
-include("boot-web-console-api", "boot-web-console-groovy", "boot-web-console-webcli")
-include("boot-web-console-boot")
+include("jweb-console-api", "jweb-console-groovy", "jweb-console-webcli")
+include("jweb-console-boot")
 include("samples:boot-groovy-console")

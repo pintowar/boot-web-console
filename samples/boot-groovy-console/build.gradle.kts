@@ -1,6 +1,6 @@
 plugins {
     java
-    id("boot-web-console.base")
+    id("jweb-console.base")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
 }
@@ -8,6 +8,7 @@ plugins {
 dependencies {
     implementation(libs.boot.actuator)
     implementation(libs.boot.web)
-    implementation(project(":boot-web-console-boot"))
-    implementation(project(":boot-web-console-groovy"))
+
+    developmentOnly(project(":jweb-console-boot"))
+    developmentOnly(project(":jweb-console-groovy"))
 }
