@@ -7,7 +7,7 @@
   import { keymap } from "@codemirror/view"
   import { SyncLoader } from 'svelte-loading-spinners';
 
-  import { groovy } from "./lib/langs";
+  import { langByEngine } from "./lib/langs";
   import { engineEval, listEngines } from "./lib/services";
   import type { ScriptResult } from "./lib/interfaces";  
   
@@ -17,7 +17,7 @@
   let sample = ""
   let engines: string[] = []
   let engine: string = NO_ENGINE
-
+  
   let isEvaluating = false;
   let scriptBody = "";
   let evalResult: ScriptResult = null;
@@ -101,18 +101,20 @@
       </select>
     </span>
   </div>
-  <CodeMirror 
-    bind:value={scriptBody}
-    lang={groovy()}
-    theme={oneDark}
-    extensions={[keymaps]}
-    styles={{
-      "&": {
-        width: "100%",
-        height: "300px",
-      },
-    }}
-  />
+  {#if engine && engine != NO_ENGINE}
+    <CodeMirror 
+      bind:value={scriptBody}
+      lang={langByEngine(engine)}
+      theme={oneDark}
+      extensions={[keymaps]}
+      styles={{
+        "&": {
+          width: "100%",
+          height: "300px",
+        },
+      }}
+    />
+  {/if}
   <div class="result-code-title"><span class="title">Result</span></div>
   <div class="result-output">
     {#if isEvaluating}

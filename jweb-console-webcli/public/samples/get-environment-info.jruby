@@ -1,0 +1,4 @@
+# Get Spring Boot environment information
+environment = applicationContext.getBean("environment")
+puts "Active profiles: #{environment.getActiveProfiles().map{|it| it}}"
+puts "Application name: #{environment.getProperty('spring.application.name')}"

@@ -1,0 +1,4 @@
+# list all spring beans
+applicationContext.getBeanDefinitionNames().sort.map do |it| 
+    puts it
+end

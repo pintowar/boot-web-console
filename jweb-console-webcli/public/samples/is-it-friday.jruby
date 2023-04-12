@@ -1,0 +1,6 @@
+# checks if jruby console works
+java_calendar = java.util.Calendar
+
+calendar = java_calendar.getInstance()
+isFriday = calendar.get(java_calendar::DAY_OF_WEEK) == java_calendar::FRIDAY
+puts "Is it friday? #{isFriday ? 'Yes' : 'No'}"
