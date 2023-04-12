@@ -18,6 +18,9 @@ gradleplugin-sonarqube = { module = "org.sonarsource.scanner.gradle:sonarqube-gr
 groovy-jsr223 = { module = "org.apache.groovy:groovy-jsr223", version.ref = "groovy" }
 boot-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "boot-gradle" }
 boot-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "boot-gradle" }
+boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "boot-gradle" }
+boot-autoconfigure-processor = { module = "org.springframework.boot:spring-boot-autoconfigure-processor", version.ref = "boot-gradle" }
+boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "boot-gradle" }
 
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
@@ -26,3 +29,4 @@ assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 
 [bundles]
 tests = ["junit-engine", "junit-params", "assertj-core"]
+boot-config-processors = ["boot-autoconfigure-processor", "boot-configuration-processor"]

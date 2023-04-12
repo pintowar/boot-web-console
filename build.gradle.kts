@@ -1,14 +1,14 @@
 import net.researchgate.release.ReleaseExtension
 
 plugins {
-    id("boot-web-console.base")
+    id("jweb-console.base")
     id("net.researchgate.release")
     id("org.sonarqube")
 }
 
 allprojects {
     group = "io.github.pintowar"
-    description = "boot-web-console"
+    description = "jweb-console"
 }
 
 tasks {
@@ -50,13 +50,13 @@ sonarqube {
         val sonarToken = project.findProperty("sonar.token")?.toString() ?: System.getenv("SONAR_TOKEN")
         property("sonar.sourceEncoding", "UTF-8")
         property("sonar.organization", "pintowar")
-        property("sonar.projectName", "boot-web-console")
-        property("sonar.projectKey", "pintowar_boot-web-console")
+        property("sonar.projectName", "jweb-console")
+        property("sonar.projectKey", "pintowar_jweb-console")
         property("sonar.projectVersion", project.version.toString())
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.login", sonarToken)
         property("sonar.verbose", true)
-        property("sonar.github.repository", "pintowar/boot-web-console")
+        property("sonar.github.repository", "pintowar/jweb-console")
         property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/codeCoverageReport.xml")
         property("sonar.exclusions", "**/sample/*.java")
     }
@@ -70,5 +70,5 @@ configure<ReleaseExtension> {
 }
 
 tasks.afterReleaseBuild {
-    dependsOn(":boot-web-console-core:publish")
+    dependsOn(":jweb-console-api:publish")
 }
