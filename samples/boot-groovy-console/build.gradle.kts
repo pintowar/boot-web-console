@@ -11,4 +11,5 @@ dependencies {
 
     developmentOnly(project(":jweb-console-boot"))
     developmentOnly(project(":jweb-console-groovy"))
+    developmentOnly(project(":jweb-console-jruby"))
 }

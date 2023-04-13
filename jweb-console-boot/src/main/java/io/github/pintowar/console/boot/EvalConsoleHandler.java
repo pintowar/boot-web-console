@@ -7,13 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 
-import java.net.URI;
 import java.util.Map;
 import java.util.Set;
 
 import static java.util.Collections.singletonMap;
 import static org.springframework.web.servlet.function.ServerResponse.ok;
-import static org.springframework.web.servlet.function.ServerResponse.temporaryRedirect;
 
 /**
  * Controller for evaluating scripts from web console.
@@ -29,7 +27,7 @@ public class EvalConsoleHandler {
     }
 
     public ServerResponse index(ServerRequest req) {
-        return temporaryRedirect(URI.create("/console/index.html")).build();
+        return ok().render("/console/index.html");
     }
 
 

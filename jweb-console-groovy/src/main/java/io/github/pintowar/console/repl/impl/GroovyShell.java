@@ -2,7 +2,7 @@ package io.github.pintowar.console.repl.impl;
 
 import groovy.lang.Binding;
 import groovy.transform.TimedInterrupt;
-import io.github.pintowar.console.repl.BaseRepl;
+import io.github.pintowar.console.repl.ReplJsr223;
 import io.github.pintowar.console.repl.ScriptResult;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.MultipleCompilationErrorsException;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 import static java.util.Collections.singletonMap;
 
-public class GroovyShell extends BaseRepl {
+public class GroovyShell extends ReplJsr223 {
 
     private static final long SCRIPT_TIMEOUT_IN_SECONDS = 5;
     private static final List<String> RECEIVERS_BLACK_LIST = Stream.of(System.class, Thread.class)

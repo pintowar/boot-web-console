@@ -7,7 +7,7 @@
   import { keymap } from "@codemirror/view"
   import { SyncLoader } from 'svelte-loading-spinners';
 
-  import { groovy } from "./lib/langs";
+  import { langByEngine } from "./lib/langs";
   import { engineEval, listEngines } from "./lib/services";
   import type { ScriptResult } from "./lib/interfaces";  
   
@@ -16,18 +16,23 @@
 
   let sample = ""
   let engines: string[] = []
-  let engine: string = NO_ENGINE
-
+  let selectedEngine: string = NO_ENGINE
+  
   let isEvaluating = false;
   let scriptBody = "";
   let evalResult: ScriptResult = null;
 
   onMount(async () => {
     await listEngines(resp => engines = resp.length > 0 ? resp : [NO_ENGINE]);
-    if (engines.length == 1) {
-      engine = engines[0];
+    if (engines.length >= 1) {
+      selectedEngine = engines[0];
     }
   })
+
+  const cleanScript = () => {
+    scriptBody = ""
+    sample = ""
+  }
 
   const samplePath = (file: string) => {
     const basePath = import.meta.env.DEV ? "" : import.meta.env.BASE_URL;
@@ -59,7 +64,7 @@
 
       isEvaluating = true;
       engineEval({
-        engine,
+        engine: selectedEngine,
         data,
         onSuccess: (response) => evalResult = response,
         onFinally: () => isEvaluating = false
@@ -88,31 +93,42 @@
     
     <img src={consoleLogo} alt="console-logo" />
     <span class="title">Edit code</span>
-    <span class="engine">Engine: {engine}</span>
+    <span class="engine">Engine:</span>
+    {#if engines.length > 1}
+      <select id="engine-select" bind:value={selectedEngine} on:change={cleanScript}>
+        {#each engines as engine}
+          <option value={engine}>{engine}</option>
+        {/each}
+      </select>
+    {:else}
+      <span>{selectedEngine}</span>
+    {/if}
     <button id="send-button" type="button" on:click={remoteEval}>&#9654; Execute</button>
     
     <span class="pulled-right">
       <label for="input-code-example-select">Example:</label>
       <select id="input-code-example-select" bind:value={sample} on:change={sampleSelect}>
         <option value="" selected>---</option>
-        {#each listSamples(engine) as sample}
+        {#each listSamples(selectedEngine) as sample}
           <option value={sample.value}>{sample.desc}</option>
         {/each}
       </select>
     </span>
   </div>
-  <CodeMirror 
-    bind:value={scriptBody}
-    lang={groovy()}
-    theme={oneDark}
-    extensions={[keymaps]}
-    styles={{
-      "&": {
-        width: "100%",
-        height: "300px",
-      },
-    }}
-  />
+  {#if selectedEngine && selectedEngine != NO_ENGINE}
+    <CodeMirror 
+      bind:value={scriptBody}
+      lang={langByEngine(selectedEngine)}
+      theme={oneDark}
+      extensions={[keymaps]}
+      styles={{
+        "&": {
+          width: "100%",
+          height: "300px",
+        },
+      }}
+    />
+  {/if}
   <div class="result-code-title"><span class="title">Result</span></div>
   <div class="result-output">
     {#if isEvaluating}
