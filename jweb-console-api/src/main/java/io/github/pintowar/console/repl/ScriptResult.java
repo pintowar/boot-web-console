@@ -40,7 +40,7 @@ public final class ScriptResult {
             String[] err = baos.toString().split(System.lineSeparator());
             return new ScriptResult(err);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Problem while closing script stderr buffer.", e);
         }
     }
 

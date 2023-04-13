@@ -26,12 +26,12 @@ public class EvalConsoleHandler {
         this.repls = Repl.getNamedRepls();
     }
 
-    public ServerResponse index(ServerRequest req) {
+    public ServerResponse index() {
         return ok().render("/console/index.html");
     }
 
 
-    public ServerResponse engines(ServerRequest req) {
+    public ServerResponse engines() {
         Set<String> engines = repls.keySet();
         return json().body(engines);
     }

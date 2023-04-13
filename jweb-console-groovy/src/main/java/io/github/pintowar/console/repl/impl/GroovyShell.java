@@ -39,6 +39,7 @@ public class GroovyShell extends ReplJsr223 {
         return "groovy";
     }
 
+    @Override
     public ScriptResult execute(String script) {
         return groovyShellExecute(script);
     }
@@ -49,7 +50,7 @@ public class GroovyShell extends ReplJsr223 {
             Object result = groovyShell.evaluate(script);
             return ScriptResult.create(result, writer.toString());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Problem while closing script stdout buffer.", e);
         } catch (MultipleCompilationErrorsException e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }

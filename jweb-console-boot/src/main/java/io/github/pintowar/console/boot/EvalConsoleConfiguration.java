@@ -23,8 +23,8 @@ public class EvalConsoleConfiguration {
     RouterFunction<ServerResponse> getEmployeeByIdRoute(EvalConsoleHandler evalConsoleHandler) {
         return route().nest(
                 path("/console"), builder -> builder
-                        .GET("", evalConsoleHandler::index)
-                        .GET("/engines", evalConsoleHandler::engines)
+                        .GET("", req -> evalConsoleHandler.index())
+                        .GET("/engines", req -> evalConsoleHandler.engines())
                         .POST("/{engine}/eval", evalConsoleHandler::execute)
         ).build();
     }

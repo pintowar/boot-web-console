@@ -8,9 +8,9 @@ public interface Repl {
 
     static Map<String, Repl> getNamedRepls() {
         Map<String, Repl> repls = new HashMap<>();
-        ServiceLoader.load(Repl.class).iterator().forEachRemaining(it -> {
-            repls.put(it.getEngineName(), it);
-        });
+        ServiceLoader.load(Repl.class).iterator().forEachRemaining(it ->
+                repls.put(it.getEngineName(), it)
+        );
         return repls;
     }
 

@@ -1,7 +1,6 @@
 package io.github.pintowar.console.repl.impl;
 
 import io.github.pintowar.console.repl.ReplJsr223;
-import io.github.pintowar.console.repl.ScriptResult;
 
 import java.util.Map;
 
@@ -20,8 +19,4 @@ public class JRubyRepl extends ReplJsr223 {
         return "jruby";
     }
 
-    @Override
-    public ScriptResult execute(String script) {
-        return super.execute(script);
-    }
 }

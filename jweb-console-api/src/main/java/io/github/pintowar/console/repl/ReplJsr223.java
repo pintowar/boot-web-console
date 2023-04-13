@@ -13,11 +13,11 @@ public abstract class ReplJsr223 implements Repl {
     private final ScriptEngineManager manager = new ScriptEngineManager();
     protected final Map<String, Object> defaultBindings;
 
-    public ReplJsr223() {
+    protected ReplJsr223() {
         this(Collections.emptyMap());
     }
 
-    public ReplJsr223(Map<String, Object> defaultBindings) {
+    protected ReplJsr223(Map<String, Object> defaultBindings) {
         this.defaultBindings = Collections.unmodifiableMap(defaultBindings);
     }
 
@@ -40,7 +40,7 @@ public abstract class ReplJsr223 implements Repl {
             Object result = engine.eval(script);
             return ScriptResult.create(result, writer.toString());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Problem while closing script stdout buffer.", e);
         } catch (ScriptException e) {
             Throwable cause = e.getCause();
             String causeMessage = cause != null ? cause.getMessage() : e.getMessage();
