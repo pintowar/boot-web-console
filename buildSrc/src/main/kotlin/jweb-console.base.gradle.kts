@@ -15,11 +15,10 @@ java {
     }
 }
 
-val catalogs = extensions.getByType<VersionCatalogsExtension>()
-val libs = catalogs.named("libs")
+//val libs = the<LibrariesForLibs>()
 
 dependencies {
-    testImplementation(libs.findBundle("tests").get())
+    testImplementation(libs.bundles.tests)
 }
 
 tasks {
