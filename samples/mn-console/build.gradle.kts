@@ -11,7 +11,7 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
 
-    implementation(project(":jweb-console-micronaut"))
+    implementation(project(":jweb-console-micronaut-starter"))
     implementation(project(":jweb-console-groovy"))
     implementation(project(":jweb-console-jruby"))
 }
@@ -22,6 +22,6 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("com.example.*")
+        annotations("io.github.pintowar.console.*")
     }
 }
