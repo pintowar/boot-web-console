@@ -19,7 +19,7 @@ Usage
 Add framework and lang dependencies:
 
 ```kotlin
-developmentOnly("io.github.pintowar:jweb-console-boot:x.y.z")
+developmentOnly("io.github.pintowar:jweb-console-spring-boot-starter:x.y.z")
 developmentOnly("io.github.pintowar:jweb-console-groovy:x.y.z")
 ```
 
