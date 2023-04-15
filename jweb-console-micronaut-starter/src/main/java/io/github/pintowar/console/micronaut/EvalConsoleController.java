@@ -3,11 +3,11 @@ package io.github.pintowar.console.micronaut;
 import io.github.pintowar.console.repl.Repl;
 import io.github.pintowar.console.repl.ScriptResult;
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.io.IOUtils;
 import io.micronaut.core.io.ResourceResolver;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
-import jakarta.inject.Singleton;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,22 +18,23 @@ import java.util.Set;
 
 import static java.util.Collections.singletonMap;
 
-@Singleton
-public class EvalConsoleHandler {
+@Requires(property = "jweb.console.enabled", value = "true", defaultValue = "false")
+@Controller("/console")
+public class EvalConsoleController {
 
     private Map<String, Repl> repls;
     private ApplicationContext applicationContext;
 
     private ResourceResolver resourceResolver;
 
-    public EvalConsoleHandler(ApplicationContext applicationContext, ResourceResolver resourceResolver) {
+    public EvalConsoleController(ApplicationContext applicationContext, ResourceResolver resourceResolver) {
         this.repls = Repl.getNamedRepls();
         this.applicationContext = applicationContext;
         this.resourceResolver = resourceResolver;
     }
 
-    @Get
-    @Produces(MediaType.TEXT_HTML)
+    @Get(produces = {MediaType.TEXT_HTML})
+//    @Produces(MediaType.TEXT_HTML)
     public Optional<String> index() {
         return resourceResolver
                 .getResourceAsStream("classpath:public/console/index.html")
@@ -46,14 +47,15 @@ public class EvalConsoleHandler {
                 });
     }
 
-    @Get
-    @Produces(MediaType.APPLICATION_JSON)
+    @Get(value = "/engines", produces = {MediaType.APPLICATION_JSON})
+//    @Produces(MediaType.APPLICATION_JSON)
     public Set<String> engines() {
         return repls.keySet();
     }
 
-    @Post
-    @Produces(MediaType.APPLICATION_JSON)
+    @Post(value = "/{engine}/eval", produces = {MediaType.APPLICATION_JSON}, consumes = {MediaType.MULTIPART_FORM_DATA})
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.MULTIPART_FORM_DATA)
     public ScriptResult execute(@PathVariable String engine, @QueryValue String script) {
         Repl repl = repls.get(engine);
         try {

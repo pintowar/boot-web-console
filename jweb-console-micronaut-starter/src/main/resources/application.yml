@@ -1,7 +1,0 @@
-micronaut:
-  router:
-    static-resources:
-      jweb-console:
-        enabled: true
-        mapping: "/**"
-        paths: "classpath:public"

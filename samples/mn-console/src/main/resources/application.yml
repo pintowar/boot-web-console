@@ -1,12 +1,6 @@
 micronaut:
   application:
     name: Sample JWeb Console
-#  router:
-#    static-resources:
-#      jweb-console:
-#        enabled: true
-#        mapping: "/**"
-#        paths: "classpath:public"
 netty:
   default:
     allocator:
