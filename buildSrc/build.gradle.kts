@@ -15,6 +15,7 @@ dependencies {
     implementation(libs.gradleplugin.boot)
     implementation(libs.gradleplugin.micronaut)
 
+    implementation(libs.gradleplugin.spotless)
     implementation(libs.gradleplugin.sonarqube)
     implementation(libs.gradleplugin.release)
     implementation(libs.gradleplugin.node)

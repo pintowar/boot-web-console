@@ -1,5 +1,6 @@
 plugins {
     `java-library`
+    id("com.diffplug.spotless")
     id("jacoco")
     id("idea")
 }
@@ -15,10 +16,25 @@ java {
     }
 }
 
-//val libs = the<LibrariesForLibs>()
-
 dependencies {
     testImplementation(libs.bundles.tests)
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+        removeUnusedImports()
+        indentWithSpaces()
+        importOrder()
+        formatAnnotations()
+        endWithNewline()
+    }
+//    format("misc") {
+//        target("**/.gitignore", "**/*.gradle", "README.md")
+//        indentWithSpaces()
+//        trimTrailingWhitespace()
+//        endWithNewline()
+//    }
 }
 
 tasks {

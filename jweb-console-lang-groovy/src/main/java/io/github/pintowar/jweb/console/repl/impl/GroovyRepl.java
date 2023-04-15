@@ -5,17 +5,16 @@ import java.util.Map;
 
 public class GroovyRepl extends ReplJsr223 {
 
-    public GroovyRepl() {
-        super();
-    }
+  public GroovyRepl() {
+    super();
+  }
 
-    public GroovyRepl(Map<String, Object> bindings) {
-        super(bindings);
-    }
+  public GroovyRepl(Map<String, Object> bindings) {
+    super(bindings);
+  }
 
-    @Override
-    public String getEngineName() {
-        return "groovy";
-    }
-
+  @Override
+  public String getEngineName() {
+    return "groovy";
+  }
 }
