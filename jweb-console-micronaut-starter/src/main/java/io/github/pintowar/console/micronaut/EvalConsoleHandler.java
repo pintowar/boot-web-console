@@ -7,6 +7,7 @@ import io.micronaut.core.io.IOUtils;
 import io.micronaut.core.io.ResourceResolver;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
+import jakarta.inject.Singleton;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import java.util.Set;
 
 import static java.util.Collections.singletonMap;
 
-@Controller
+@Singleton
 public class EvalConsoleHandler {
 
     private Map<String, Repl> repls;

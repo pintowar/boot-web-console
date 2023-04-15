@@ -1,6 +1,8 @@
 [versions]
 boot-gradle = "2.4.3"
 management-gradle = "1.0.11.RELEASE"
+micronaut-gradle = "3.7.8"
+micronaut = "3.5.1"
 node = "3.1.1"
 
 junit = "5.9.2"
@@ -12,6 +14,7 @@ assertj = "3.24.2"
 gradleplugin-boot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "boot-gradle" }
 gradleplugin-management = { module = "io.spring.gradle:dependency-management-plugin", version.ref = "management-gradle" }
 gradleplugin-node = { module = "com.github.node-gradle:gradle-node-plugin", version.ref = "node" }
+gradleplugin-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref = "micronaut-gradle" }
 
 gradleplugin-release = { module = "net.researchgate:gradle-release", version = "3.0.2" }
 gradleplugin-sonarqube = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version = "4.0.0.2929" }
@@ -24,6 +27,9 @@ boot-actuator = { module = "org.springframework.boot:spring-boot-starter-actuato
 boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "boot-gradle" }
 boot-autoconfigure-processor = { module = "org.springframework.boot:spring-boot-autoconfigure-processor", version.ref = "boot-gradle" }
 boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor", version.ref = "boot-gradle" }
+
+micronaut-router = { module = "io.micronaut:micronaut-router", version.ref = "micronaut" }
+micronaut-validation = { module = "io.micronaut:micronaut-http-validation", version.ref = "micronaut" }
 
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }

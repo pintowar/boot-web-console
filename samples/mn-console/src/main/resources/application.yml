@@ -3,7 +3,7 @@ micronaut:
     name: Sample JWeb Console
 #  router:
 #    static-resources:
-#      default:
+#      jweb-console:
 #        enabled: true
 #        mapping: "/**"
 #        paths: "classpath:public"

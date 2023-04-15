@@ -1,7 +1,11 @@
 plugins {
     java
-    id("jweb-console.base")
-    id("io.micronaut.application") version "3.7.7"
+    id("io.micronaut.application")
+//    id("com.github.johnrengelman.shadow")
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -11,9 +15,9 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
 
-    implementation(project(":jweb-console-micronaut-starter"))
-    implementation(project(":jweb-console-groovy"))
-    implementation(project(":jweb-console-jruby"))
+    runtimeOnly(project(":jweb-console-micronaut-starter"))
+    runtimeOnly(project(":jweb-console-groovy"))
+    runtimeOnly(project(":jweb-console-jruby"))
 }
 
 graalvmNative.toolchainDetection.set(false)
