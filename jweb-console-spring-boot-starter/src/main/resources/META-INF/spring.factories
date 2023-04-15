@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.github.pintowar.console.boot.EvalConsoleConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.github.pintowar.jweb.console.boot.EvalConsoleConfiguration
