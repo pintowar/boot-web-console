@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     api(project(":jweb-console-api"))
+    allLangSubModules().forEach(::runtimeOnly)
 
     implementation(libs.micronaut.router)
     annotationProcessor(libs.micronaut.validation)

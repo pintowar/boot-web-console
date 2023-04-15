@@ -15,8 +15,6 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
 
     runtimeOnly(project(":jweb-console-micronaut-starter"))
-    runtimeOnly(project(":jweb-console-groovy"))
-    runtimeOnly(project(":jweb-console-jruby"))
 }
 
 graalvmNative.toolchainDetection.set(false)

@@ -13,6 +13,7 @@ dependencyManagement {
 dependencies {
     api(project(":jweb-console-api"))
     implementation(libs.boot.web)
+    allLangSubModules().forEach(::runtimeOnly)
 
     annotationProcessor(libs.bundles.boot.config.processors)
 }
