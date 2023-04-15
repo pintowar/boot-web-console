@@ -1,8 +1,11 @@
 plugins {
     java
-    id("jweb-console.base")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {

@@ -2,5 +2,5 @@ rootProject.name = "jweb-console"
 
 include("jweb-console-api", "jweb-console-webcli")
 include("jweb-console-groovy", "jweb-console-jruby")
-include("jweb-console-spring-boot-starter")
-include("samples:boot-console")
+include("jweb-console-spring-boot-starter", "jweb-console-micronaut-starter")
+include("samples:boot-console", "samples:mn-console")
