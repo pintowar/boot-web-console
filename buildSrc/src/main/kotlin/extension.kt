@@ -5,6 +5,13 @@ import org.gradle.kotlin.dsl.the
 val Project.libs: LibrariesForLibs
     get() = the<LibrariesForLibs>()
 
-fun Project.allLangSubModules() = this.rootProject
-        .subprojects
-        .filter { it.name.startsWith("jweb-console-lang-") }
+val Project.allLangSubModules: List<Project>
+    get() = this.rootProject
+            .subprojects
+            .filter { it.plugins.hasPlugin("jweb-console.base") }
+            .filter { it.name.startsWith("jweb-console-lang-") }
+
+val Project.allStarterSubModules: List<Project>
+    get() = this.rootProject
+            .subprojects
+            .filter { it.name.startsWith("jweb-console-") && it.name.endsWith("-starter") }

@@ -1,8 +1,7 @@
 plugins {
-    `java-library`
+    java
+    jacoco
     id("com.diffplug.spotless")
-    id("jacoco")
-    id("idea")
 }
 
 repositories {
@@ -29,12 +28,6 @@ spotless {
         formatAnnotations()
         endWithNewline()
     }
-//    format("misc") {
-//        target("**/.gitignore", "**/*.gradle", "README.md")
-//        indentWithSpaces()
-//        trimTrailingWhitespace()
-//        endWithNewline()
-//    }
 }
 
 tasks {
@@ -48,13 +41,17 @@ tasks {
         archiveClassifier.set("javadoc")
         archiveExtension.set("jar")
     }
+}
 
-    test {
-        useJUnitPlatform()
-        finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useJUnitJupiter()
+        }
     }
+}
 
-    jacocoTestReport {
-        dependsOn(tasks.test) // tests are required to run before generating the report
-    }
+// Do not generate reports for individual projects
+tasks.jacocoTestReport {
+    enabled = false
 }

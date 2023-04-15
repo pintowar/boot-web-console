@@ -1,12 +1,12 @@
 plugins {
+    `java-library`
     id("jweb-console.publish")
     id("io.micronaut.library")
-    id("java-library")
 }
 
 dependencies {
     api(project(":jweb-console-api"))
-    allLangSubModules().forEach(::runtimeOnly)
+    allLangSubModules.forEach(::runtimeOnly)
 
     implementation(libs.micronaut.router)
     annotationProcessor(libs.micronaut.validation)

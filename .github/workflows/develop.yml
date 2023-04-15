@@ -36,5 +36,5 @@ jobs:
           SONATYPE_PASS: ${{ secrets.SONATYPE_PASS }}
         with:
           gradle-version: wrapper
-          arguments: clean spotlessCheck codeCoverageReport sonar --scan
-#          arguments: clean codeCoverageReport sonar :jweb-console-api:publishAllPublicationsToSonatypeRepository
+          arguments: clean spotlessCheck testCodeCoverageReport sonar
+#          arguments: clean spotlessCheck testCodeCoverageReport sonar :jweb-console-api:publishAllPublicationsToSonatypeRepository

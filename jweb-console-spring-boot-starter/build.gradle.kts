@@ -1,7 +1,7 @@
 plugins {
+    `java-library`
     id("jweb-console.publish")
     id("io.spring.dependency-management")
-    id("java-library")
 }
 
 dependencyManagement {
@@ -13,7 +13,7 @@ dependencyManagement {
 dependencies {
     api(project(":jweb-console-api"))
     implementation(libs.boot.web)
-    allLangSubModules().forEach(::runtimeOnly)
+    allLangSubModules.forEach(::runtimeOnly)
 
     annotationProcessor(libs.bundles.boot.config.processors)
 }
