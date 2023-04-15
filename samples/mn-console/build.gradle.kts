@@ -17,6 +17,10 @@ dependencies {
     runtimeOnly(project(":jweb-console-micronaut-starter"))
 }
 
+application {
+    mainClass.set("io.github.pintowar.jweb.console.sample.MnJWebConsoleApp")
+}
+
 graalvmNative.toolchainDetection.set(false)
 micronaut {
     runtime("netty")
