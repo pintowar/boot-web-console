@@ -8,23 +8,39 @@
 ![GitHub tag (latest)](https://img.shields.io/github/v/tag/pintowar/jweb-console)
 ![GitHub license](https://img.shields.io/github/license/pintowar/jweb-console)
 
-Overview
---------
+# Overview
+
 This application is intended for embedding a web console in a java web application (Spring Boot)
 which then could access the application context (for development purposes).
 
-Usage
------
+# Usage
 
-Add framework and lang dependencies:
+Add framework starter dependency and enabled it on the framework config file.
+
+To add the dependency add the following dependency to each framework:
+
+## Frameworks
+
+JWeb Console can be used in different web frameworks add the dependency using the following config:
+
+### For Spring Boot
 
 ```kotlin
-developmentOnly("io.github.pintowar:jweb-console-spring-boot-starter:x.y.z")
-developmentOnly("io.github.pintowar:jweb-console-groovy:x.y.z")
+runtimeOnly("io.github.pintowar:jweb-console-spring-boot-starter:x.y.z")
 ```
+
+### For Micronaut
+
+```kotlin
+runtimeOnly("io.github.pintowar:jweb-console-micronaut-starter:x.y.z")
+```
+
+## Applying config
+
+This lib is meant to be used only in development environments. Therefore, preferably these settings should be done in `application-dev.properties` or `application-dev.yml` files.
 
 Add the `jweb.console.enabled=true` config to the application config (preferably only on dev environment).
 
 After the application is started, the console can be accessed on the url: `http://localhost:8080/console`
 
-A sample application can be found on the `samples` folder.
+Sample applications can be found on the `samples` folder.
