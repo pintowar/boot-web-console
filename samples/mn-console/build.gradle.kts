@@ -1,7 +1,6 @@
 plugins {
     java
     id("io.micronaut.application")
-//    id("com.github.johnrengelman.shadow")
 }
 
 repositories {
