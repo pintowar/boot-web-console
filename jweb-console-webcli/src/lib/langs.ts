@@ -11,7 +11,7 @@ function ruby() {
     return new LanguageSupport(StreamLanguage.define(rubyParser))
 }
 
-export function langByEngine(engine: string) {
+export function langByEngine(engine: string): LanguageSupport {
     switch (engine) {
         case "groovy":
             return groovy();
