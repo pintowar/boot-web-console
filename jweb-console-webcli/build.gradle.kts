@@ -31,14 +31,13 @@ tasks {
     register<NpmTask>("test") {
         dependsOn(npmInstall)
         group = "test"
-        description = "e2e test"
-        args.set(listOf("run", "check"))
+        description = "unit tests"
+        args.set(listOf("run", "coverage"))
     }
 
     register<Delete>("clean") {
         delete(project.buildDir)
         delete("${project.projectDir}/coverage")
-        delete("${project.projectDir}/.nyc_output")
     }
 
 }

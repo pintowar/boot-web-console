@@ -8,17 +8,18 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-        "/console/": {
-            target: "http://localhost:8080/",
-            changeOrigin: true,
-            secure: false,
-        },
+      "/console/": {
+        target: "http://localhost:8080/",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
   test: {
+    globals: true,
     environment: 'jsdom'
   },
-  plugins: [svelte()],
+  plugins: [svelte({ hot: !process.env.VITEST })],
   // optimizeDeps: {
   //   exclude: ["codemirror", "@codemirror/language-javascript" /* ... */],
   // }
