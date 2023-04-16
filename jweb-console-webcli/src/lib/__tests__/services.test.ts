@@ -2,10 +2,6 @@ import type { ScriptResult } from '../interfaces';
 import { assert, describe, expect, it, vi, afterAll } from 'vitest'
 import { engineEval, listEngines, sampleSelect } from '../services';
 
-function createTextResponse(data) {
-    return { text: () => new Promise((resolve) => resolve(data)) }
-}
-
 function setupMockFetch(data: any, status: number = 200, contentBody: string = 'json') {
     const fetchMock = vi.fn().mockResolvedValue({ 
         ok: status < 400,

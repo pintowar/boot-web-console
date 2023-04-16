@@ -15,6 +15,7 @@ export function langByEngine(engine: string): LanguageSupport {
     switch (engine) {
         case "groovy":
             return groovy();
+        case "ruby":
         case "jruby":
             return ruby();
         default:
