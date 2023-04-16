@@ -71,12 +71,9 @@
     async function remoteEval() {
         evalResult = null;
         if (scriptBody) {
-            const data = new FormData();
-            data.append('script', scriptBody);
-
             try {
                 isEvaluating = true;
-                evalResult = await engineEval(selectedEngine, data);
+                evalResult = await engineEval(selectedEngine, scriptBody);
             } finally {
                 isEvaluating = false;
             }
