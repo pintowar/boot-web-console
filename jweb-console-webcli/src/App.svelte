@@ -2,7 +2,7 @@
   import type { ScriptResult } from "./lib/interfaces";
 
   import EvaluatedResult from './components/EvaluatedResult.svelte';
-  import CodeEditor from './components/CodeEditor.svelte';
+  import CodeEditor from './components/CodeEditor/index.svelte';
 
   let isEvaluating = false;
   let evalResult: ScriptResult = null;
