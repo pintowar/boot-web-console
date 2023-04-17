@@ -50,7 +50,8 @@ body {
   margin-right: 20px;
 }
 
-.input-code-title, .result-code-title {
+.input-code-title,
+.result-code-title {
   background-color: #4d4d4d;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
@@ -61,7 +62,7 @@ body {
 }
 
 .result-output {
-    height: calc(100vh - 364px);
+  height: calc(100vh - 364px);
   color: white;
   background-color: #282c34;
   overflow-y: auto;
