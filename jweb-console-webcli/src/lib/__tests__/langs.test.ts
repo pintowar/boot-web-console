@@ -1,4 +1,3 @@
-import { test, expect } from "vitest";
 import { langByEngine } from "../langs";
 
 test("language support by engine name", () => {
