@@ -2,6 +2,7 @@ import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
     id("com.github.node-gradle.node")
+    id("org.sonarqube")
 }
 
 description = "Boot Web Console Client"
@@ -31,14 +32,28 @@ tasks {
     register<NpmTask>("test") {
         dependsOn(npmInstall)
         group = "test"
-        description = "e2e test"
-        args.set(listOf("run", "check"))
+        description = "unit tests"
+        args.set(listOf("run", "coverage"))
     }
 
     register<Delete>("clean") {
         delete(project.buildDir)
         delete("${project.projectDir}/coverage")
-        delete("${project.projectDir}/.nyc_output")
     }
 
+    register("testCodeCoverageReport") {
+        dependsOn("test")
+        doLast {
+            logger.quiet("Finishing Coverage Report!!")
+        }
+    }
+}
+
+sonarqube {
+    properties {
+        val lcovReportPath = "${projectDir.absolutePath}/coverage/"
+        property("sonar.sources", "src")
+        property("sonar.tests", "src/**/*.test.ts")
+        property("sonar.typescript.lcov.reportPaths", "$lcovReportPath/lcov.info")
+    }
 }

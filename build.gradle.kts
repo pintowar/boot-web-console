@@ -46,8 +46,10 @@ spotless {
 
 sonarqube {
     properties {
-        val jacocoReportPath = "${project.buildDir.absolutePath}/reports/jacoco/testCodeCoverageReport"
         val sonarToken = project.findProperty("sonar.token")?.toString() ?: System.getenv("SONAR_TOKEN")
+        val jacocoReportPath = "${project.buildDir.absolutePath}/reports/jacoco/testCodeCoverageReport"
+        val lcovReportPath = "${project("jweb-console-webcli").projectDir.absolutePath}/coverage/"
+
         property("sonar.sourceEncoding", "UTF-8")
         property("sonar.organization", "pintowar")
         property("sonar.projectName", "jweb-console")
@@ -57,8 +59,9 @@ sonarqube {
         property("sonar.login", sonarToken)
         property("sonar.verbose", true)
         property("sonar.github.repository", "pintowar/jweb-console")
-        property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/testCodeCoverageReport.xml")
         property("sonar.exclusions", "**/sample/*.java")
+        property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/testCodeCoverageReport.xml")
+        property("sonar.typescript.lcov.reportPaths", "$lcovReportPath/lcov.info")
     }
 }
 
