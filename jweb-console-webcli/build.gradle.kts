@@ -53,7 +53,9 @@ sonarqube {
     properties {
         val lcovReportPath = "${projectDir.absolutePath}/coverage/"
         property("sonar.sources", "src")
+        property("sonar.exclusions", "src/**/*.html,src/**/*.css")
         property("sonar.tests", "src")
+        property("sonar.test.inclusions", "src/**/*.test.ts")
         property("sonar.typescript.lcov.reportPaths", "$lcovReportPath/lcov.info")
     }
 }
