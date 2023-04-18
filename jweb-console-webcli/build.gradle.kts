@@ -5,7 +5,7 @@ plugins {
     id("org.sonarqube")
 }
 
-description = "Boot Web Console Client"
+description = "JWeb Console Client"
 
 project.buildDir = file("dist")
 
