@@ -56,6 +56,6 @@ sonarqube {
         property("sonar.exclusions", "src/**/*.html,src/**/*.css")
         property("sonar.tests", "src")
         property("sonar.test.inclusions", "src/**/*.test.ts")
-        property("sonar.typescript.lcov.reportPaths", "$lcovReportPath/lcov.info")
+        property("sonar.javascript.lcov.reportPaths", "$lcovReportPath/lcov.info")
     }
 }

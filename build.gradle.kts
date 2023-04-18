@@ -61,7 +61,7 @@ sonarqube {
         property("sonar.github.repository", "pintowar/jweb-console")
         property("sonar.exclusions", "**/sample/*.java")
         property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/testCodeCoverageReport.xml")
-        property("sonar.typescript.lcov.reportPaths", "$lcovReportPath/lcov.info")
+        property("sonar.javascript.lcov.reportPaths", "$lcovReportPath/lcov.info")
     }
 }
 
