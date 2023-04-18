@@ -53,7 +53,7 @@ sonarqube {
     properties {
         val lcovReportPath = "${projectDir.absolutePath}/coverage/"
         property("sonar.sources", "src")
-        property("sonar.exclusions", "src/**/*.html,src/**/*.css")
+        property("sonar.exclusions", "src/**/*.html,src/**/*.css,src/**/*.test.ts")
         property("sonar.inclusions", "src/**/*.ts,src/**/*.js,src/**/*.svelte")
         property("sonar.tests", "src")
         property("sonar.test.inclusions", "src/**/*.test.ts")
