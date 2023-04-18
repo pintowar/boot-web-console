@@ -41,7 +41,7 @@
 
   let sample = "";
   let selectedEngine: string = NO_ENGINE;
-  let scriptBody: string = "";
+  let scriptBody = "";
 
   function handleChangeEngine() {
     scriptBody = "";
