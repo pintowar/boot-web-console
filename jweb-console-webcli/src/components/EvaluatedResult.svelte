@@ -2,8 +2,11 @@
   import { SyncLoader } from "svelte-loading-spinners";
   import type { ScriptResult } from "../lib/interfaces";
 
-  export let isEvaluating: boolean;
-  export let evalResult: ScriptResult;
+  export let evalResult: Promise<ScriptResult>;
+
+  function consoleOutput(buffer: string[]) {
+    return buffer.join("\n");
+  }
 </script>
 
 <div>
@@ -11,27 +14,28 @@
     <span class="title">Result</span>
   </div>
   <div class="result-output">
-    {#if isEvaluating}
+    {#await evalResult}
       <div class="loading">
         <SyncLoader size="60" color="white" unit="px" duration="1s" />
       </div>
-    {/if}
-    {#if !isEvaluating && evalResult}
+    {:then evaluated}
       <div>
-        {#if evalResult?.stdout}
-          <pre class="stdout">{evalResult.stdout.join("\n")}</pre>
+        {#if evaluated.stdout}
+          <pre class="stdout">{consoleOutput(evaluated.stdout)}</pre>
         {/if}
       </div>
       <div>
-        {#if evalResult?.stderr}
-          <pre class="stderr">{evalResult.stderr.join("\n")}</pre>
+        {#if evaluated.stderr}
+          <pre class="stderr">{consoleOutput(evaluated.stderr)}</pre>
         {/if}
       </div>
-      {#if evalResult.result}
+      {#if evaluated.result}
         <div class="result">
-          Result: <pre>{evalResult.result}</pre>
+          Result: <pre>{evaluated.result}</pre>
         </div>
       {/if}
-    {/if}
+    {:catch}
+      <div class="loading">Error!</div>
+    {/await}
   </div>
 </div>

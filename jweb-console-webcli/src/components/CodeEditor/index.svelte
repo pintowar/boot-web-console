@@ -36,8 +36,7 @@
     },
   ]);
 
-  export let isEvaluating;
-  export let evalResult: ScriptResult;
+  export let evalResult: Promise<ScriptResult>;
 
   let sample = "";
   let selectedEngine: string = NO_ENGINE;
@@ -48,15 +47,10 @@
     sample = "";
   }
 
-  async function remoteEval() {
-    evalResult = null;
+  function remoteEval() {
+    evalResult = Promise.resolve({ result: "", stdout: [], stderr: [] });
     if (scriptBody) {
-      try {
-        isEvaluating = true;
-        evalResult = await engineEval(selectedEngine, scriptBody);
-      } finally {
-        isEvaluating = false;
-      }
+      evalResult = engineEval(selectedEngine, scriptBody);
     }
   }
 </script>

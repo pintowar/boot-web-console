@@ -4,11 +4,10 @@
   import EvaluatedResult from "./components/EvaluatedResult.svelte";
   import CodeEditor from "./components/CodeEditor/index.svelte";
 
-  let isEvaluating = false;
-  let evalResult: ScriptResult = null;
+  let evalResult: Promise<ScriptResult> = Promise.resolve({ result: "", stdout: [], stderr: [] });
 </script>
 
 <main>
-  <CodeEditor bind:evalResult bind:isEvaluating />
-  <EvaluatedResult {evalResult} {isEvaluating} />
+  <CodeEditor bind:evalResult />
+  <EvaluatedResult {evalResult} />
 </main>
