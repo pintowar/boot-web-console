@@ -1,6 +1,6 @@
 <script lang="ts">
   import { sampleSelect } from "../../lib/services";
-  import Select from "./Select.svelte";
+  import Select from "../Select.svelte";
 
   export let scriptBody: string;
 

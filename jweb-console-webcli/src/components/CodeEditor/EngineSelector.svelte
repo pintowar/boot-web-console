@@ -3,7 +3,7 @@
   import {} from "svelte";
 
   import { listEngines } from "../../lib/services";
-  import Select from "../CodeEditor/Select.svelte";
+  import Select from "../Select.svelte";
   import { NO_ENGINE } from "./constants";
 
   export let selectedEngine: string;
