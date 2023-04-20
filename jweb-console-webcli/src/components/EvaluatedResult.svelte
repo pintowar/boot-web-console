@@ -3,6 +3,8 @@
   import type { ScriptResult } from "../lib/interfaces";
   import Card from "./Card.svelte";
 
+  import warning from "../assets/warning.png";
+
   export let evalResult: Promise<ScriptResult>;
 
   function consoleOutput(buffer: string[]) {
@@ -38,8 +40,11 @@
               Result: <pre>{evaluated.result}</pre>
             </div>
           {/if}
-        {:catch}
-          <div class="loading">Error!</div>
+        {:catch error}
+          <div class="error">
+            <img src={warning} alt="warning" class="bang"/>
+            <span class="msg">{error.message}</span>
+          </div>
         {/await}
       </div>
     </div>
@@ -59,6 +64,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .result-output .error {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+  }
+
+  .result-output .error .bang {
+    height: 35px;
+  }
+
+  .result-output .error .msg {
+    padding-left: 10px;
   }
 
   .result-output .result {
