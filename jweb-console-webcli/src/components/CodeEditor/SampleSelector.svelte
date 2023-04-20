@@ -1,5 +1,6 @@
 <script lang="ts">
   import { sampleSelect } from "../../lib/services";
+  import Select from "./Select.svelte";
 
   export let scriptBody: string;
 
@@ -28,12 +29,10 @@
   }
 </script>
 
-<span class="pulled-right">
-  <label for="input-code-example-select">Example:</label>
-  <select id="input-code-example-select" bind:value={sample} on:change={sampleToScript}>
-    <option value="" selected>---</option>
-    {#each listSamples(selectedEngine) as sample}
-      <option value={sample.value}>{sample.desc}</option>
-    {/each}
-  </select>
-</span>
+<Select
+  label={"Sample Code:"}
+  options={listSamples(selectedEngine)}
+  defaultValue={true}
+  bind:value={sample}
+  on:change={sampleToScript}
+/>

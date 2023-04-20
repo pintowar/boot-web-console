@@ -11,6 +11,7 @@
   import { langByEngine } from "../../lib/langs";
 
   import consoleLogo from "../../assets/console.png";
+  import Card from "../Card.svelte";
 
   const keymaps = keymap.of([
     {
@@ -55,28 +56,62 @@
   }
 </script>
 
-<div>
-  <div class="input-code-title">
+<Card>
+  <div slot="header">
     <img src={consoleLogo} alt="console-logo" />
     <span class="title">Edit code</span>
     <span class="engine">Engine:</span>
     <EngineSelector bind:selectedEngine on:change={handleChangeEngine} />
     <button id="send-button" type="button" on:click={remoteEval}>&#9654; Execute</button>
 
-    <SampleSelector bind:scriptBody {sample} {selectedEngine} />
+    <div class="pulled-right">
+      <SampleSelector bind:scriptBody {sample} {selectedEngine} />
+    </div>
   </div>
-  {#if selectedEngine && selectedEngine != NO_ENGINE}
-    <CodeMirror
-      bind:value={scriptBody}
-      lang={langByEngine(selectedEngine)}
-      theme={oneDark}
-      extensions={[keymaps]}
-      styles={{
-        "&": {
-          width: "100%",
-          height: "300px",
-        },
-      }}
-    />
-  {/if}
-</div>
+
+  <div slot="content">
+    {#if selectedEngine && selectedEngine != NO_ENGINE}
+      <CodeMirror
+        bind:value={scriptBody}
+        lang={langByEngine(selectedEngine)}
+        theme={oneDark}
+        extensions={[keymaps]}
+        styles={{
+          "&": {
+            width: "100%",
+            height: "300px",
+          },
+        }}
+      />
+    {/if}
+  </div>
+</Card>
+
+<style>
+  img {
+    position: absolute;
+    top: 1px;
+  }
+
+  .title {
+    margin-left: 40px;
+  }
+
+  .engine {
+    margin-left: 20px;
+  }
+
+  button {
+    background-color: #5f5f5f;
+    font-family: sans-serif;
+    font-size: 12px;
+    height: 22px;
+    color: #fff;
+    border: 1px solid #ddd;
+    margin-left: 20px;
+  }
+
+  .pulled-right {
+    float: right;
+  }
+</style>

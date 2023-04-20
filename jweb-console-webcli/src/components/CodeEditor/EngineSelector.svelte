@@ -3,6 +3,7 @@
   import {} from "svelte";
 
   import { listEngines } from "../../lib/services";
+  import Select from "../CodeEditor/Select.svelte";
   import { NO_ENGINE } from "./constants";
 
   export let selectedEngine: string;
@@ -25,11 +26,14 @@
 </script>
 
 {#if engines.length > 1}
-  <select id="engine-select" bind:value={selectedEngine} on:change={onChange}>
-    {#each engines as engine}
-      <option value={engine}>{engine}</option>
-    {/each}
-  </select>
+  <Select
+    options={engines.map((it) => ({
+      value: it,
+      desc: it,
+    }))}
+    bind:value={selectedEngine}
+    on:change={onChange}
+  />
 {:else}
   <span>{selectedEngine}</span>
 {/if}
