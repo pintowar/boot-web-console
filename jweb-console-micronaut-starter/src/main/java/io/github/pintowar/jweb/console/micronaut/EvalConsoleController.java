@@ -58,7 +58,7 @@ public class EvalConsoleController {
       value = "/{engine}/eval",
       produces = {MediaType.APPLICATION_JSON},
       consumes = {MediaType.MULTIPART_FORM_DATA})
-  public ScriptResult execute(@PathVariable String engine, @QueryValue String script) {
+  public ScriptResult eval(@PathVariable String engine, @QueryValue String script) {
     return repls.get(engine).eval(script, singletonMap("applicationContext", applicationContext));
   }
 }
