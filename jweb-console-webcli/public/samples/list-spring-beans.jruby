@@ -1,4 +1,4 @@
 # list all spring boot beans (must adapt to work on other frameworks)
-applicationContext.getBeanDefinitionNames().sort.map do |it| 
+applicationContext.getBeanDefinitionNames().sort.each do |it|
     puts it
 end
