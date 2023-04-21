@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
 
-/** Controller for evaluating scripts from web console. */
+/** Handler for evaluating scripts from web console. */
 public class EvalConsoleHandler {
 
   private Map<String, Repl> repls;
@@ -34,14 +34,13 @@ public class EvalConsoleHandler {
 
   public ServerResponse execute(ServerRequest req) {
     Repl repl = repls.get(req.pathVariable("engine"));
-    try {
-      String script = req.param("script").orElse(null);
-      ScriptResult result =
-          repl.execute(script, singletonMap("applicationContext", applicationContext));
-      return json().body(result);
-    } catch (RuntimeException e) {
-      return json().body(ScriptResult.create(e));
-    }
+    ScriptResult result =
+        repls
+            .get(req.pathVariable("engine"))
+            .eval(
+                req.param("script").orElse(null),
+                singletonMap("applicationContext", applicationContext));
+    return json().body(result);
   }
 
   private ServerResponse.BodyBuilder json() {

@@ -34,7 +34,6 @@ public class EvalConsoleController {
   }
 
   @Get(produces = {MediaType.TEXT_HTML})
-  //    @Produces(MediaType.TEXT_HTML)
   public Optional<String> index() {
     return resourceResolver
         .getResourceAsStream("classpath:public/console/index.html")
@@ -51,7 +50,6 @@ public class EvalConsoleController {
   @Get(
       value = "/engines",
       produces = {MediaType.APPLICATION_JSON})
-  //    @Produces(MediaType.APPLICATION_JSON)
   public Set<String> engines() {
     return repls.keySet();
   }
@@ -60,14 +58,7 @@ public class EvalConsoleController {
       value = "/{engine}/eval",
       produces = {MediaType.APPLICATION_JSON},
       consumes = {MediaType.MULTIPART_FORM_DATA})
-  //    @Produces(MediaType.APPLICATION_JSON)
-  //    @Consumes(MediaType.MULTIPART_FORM_DATA)
   public ScriptResult execute(@PathVariable String engine, @QueryValue String script) {
-    Repl repl = repls.get(engine);
-    try {
-      return repl.execute(script, singletonMap("applicationContext", applicationContext));
-    } catch (RuntimeException e) {
-      return ScriptResult.create(e);
-    }
+    return repls.get(engine).eval(script, singletonMap("applicationContext", applicationContext));
   }
 }

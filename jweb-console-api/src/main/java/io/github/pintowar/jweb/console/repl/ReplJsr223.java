@@ -21,6 +21,7 @@ public abstract class ReplJsr223 implements Repl {
     this.defaultBindings = Collections.unmodifiableMap(defaultBindings);
   }
 
+  @Override
   public ScriptResult execute(String script, Map<String, Object> bindings) {
     if (script == null) {
       throw new IllegalArgumentException("Script should not be null");
@@ -48,10 +49,5 @@ public abstract class ReplJsr223 implements Repl {
       throw new IllegalArgumentException(
           topCause != null ? topCause.getMessage() : causeMessage, e);
     }
-  }
-
-  @Override
-  public ScriptResult execute(String script) {
-    return execute(script, Collections.emptyMap());
   }
 }
