@@ -2,7 +2,7 @@ package io.github.pintowar.jweb.console.repl;
 
 import java.util.Map;
 
-class MockRepl implements Repl {
+public class MockRepl implements Repl {
 
   @Override
   public ScriptResult execute(String script) {
