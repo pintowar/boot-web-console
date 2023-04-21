@@ -19,7 +19,7 @@ import org.springframework.web.servlet.function.EntityResponse;
 import org.springframework.web.servlet.function.RenderingResponse;
 import org.springframework.web.servlet.function.ServerRequest;
 
-public class EvalConsoleHandlerTest {
+class EvalConsoleHandlerTest {
 
   private final String mockEngine = "mock";
 

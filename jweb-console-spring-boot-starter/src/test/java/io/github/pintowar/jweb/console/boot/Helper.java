@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletMapping;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.function.RouterFunctions;
 
-public class Helper {
+class Helper {
 
   static HttpServletRequest mockRequest(String uri, String method, String script, String engine) {
     HttpServletRequest request = mock(HttpServletRequest.class);

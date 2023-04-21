@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import io.micronaut.web.router.resource.StaticResourceConfiguration;
 import org.junit.jupiter.api.Test;
 
-public class JwebConsoleStaticConfigTest {
+class JwebConsoleStaticConfigTest {
 
   private JwebConsoleStaticConfig config = new JwebConsoleStaticConfig();
 

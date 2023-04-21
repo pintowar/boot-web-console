@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
-public class ReplTest {
+class ReplTest {
 
   @Test
   void shouldGetNamedRepls() {

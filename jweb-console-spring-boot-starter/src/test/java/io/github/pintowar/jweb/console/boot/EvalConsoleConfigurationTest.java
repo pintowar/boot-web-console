@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest
 @ContextConfiguration(classes = {EvalConsoleConfiguration.class})
 @TestPropertySource(properties = "jweb.console.enabled=true")
-public class EvalConsoleConfigurationTest {
+class EvalConsoleConfigurationTest {
 
   private final String mockEngine = "mock";
 
