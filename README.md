@@ -4,6 +4,7 @@
 [![Sonar Coverage](https://sonarcloud.io/api/project_badges/measure?project=pintowar_jweb-console&metric=coverage)](https://sonarcloud.io/dashboard?id=pintowar_jweb-console)
 
 ![develop status](https://github.com/pintowar/jweb-console/actions/workflows/develop.yml/badge.svg?branch=develop)
+[![Sonar Coverage](https://sonarcloud.io/api/project_badges/measure?project=pintowar_jweb-console&metric=coverage&branch=develop)](https://sonarcloud.io/dashboard?id=pintowar_jweb-console&branch=develop)
 
 ![GitHub tag (latest)](https://img.shields.io/github/v/tag/pintowar/jweb-console)
 ![GitHub license](https://img.shields.io/github/license/pintowar/jweb-console)
