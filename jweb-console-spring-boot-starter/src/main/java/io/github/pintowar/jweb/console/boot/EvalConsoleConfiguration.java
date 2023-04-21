@@ -20,7 +20,7 @@ public class EvalConsoleConfiguration {
   }
 
   @Bean
-  RouterFunction<ServerResponse> getEmployeeByIdRoute(EvalConsoleHandler evalConsoleHandler) {
+  RouterFunction<ServerResponse> consoleRoutes(EvalConsoleHandler evalConsoleHandler) {
     return route()
         .nest(
             path("/console"),
@@ -28,7 +28,7 @@ public class EvalConsoleConfiguration {
                 builder
                     .GET("", req -> evalConsoleHandler.index())
                     .GET("/engines", req -> evalConsoleHandler.engines())
-                    .POST("/{engine}/eval", evalConsoleHandler::execute))
+                    .POST("/{engine}/eval", evalConsoleHandler::eval))
         .build();
   }
 }
