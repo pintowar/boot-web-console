@@ -11,8 +11,10 @@
 
 # Overview
 
-This application is intended for embedding a web console in a java web application (Spring Boot)
+This application is intended for embedding a web scripting console (for groovy or jruby) in a java web application (Micronaut/Spring Boot)
 which then could access the application context (for development purposes).
+
+![image](https://user-images.githubusercontent.com/354264/233759240-456abea7-31b5-4147-9173-8fed51164f53.png)
 
 # Usage
 
