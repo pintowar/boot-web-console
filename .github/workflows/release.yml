@@ -62,7 +62,7 @@ jobs:
         with:
           repository: ${{ github.repository }}
           tag_name: ${{ steps.get_current_version.outputs.current_version }}
-          target_commitish: ${{ github.base_ref }}
+          target_commitish: ${{ github.sha }}
           draft: true
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
