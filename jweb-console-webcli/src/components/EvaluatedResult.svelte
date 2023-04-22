@@ -42,7 +42,7 @@
           {/if}
         {:catch error}
           <div class="error">
-            <img src={warning} alt="warning" class="bang"/>
+            <img src={warning} alt="warning" class="bang" />
             <span class="msg">{error.message}</span>
           </div>
         {/await}

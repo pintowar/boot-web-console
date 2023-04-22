@@ -13,25 +13,32 @@
   import consoleLogo from "../../assets/console.png";
   import Card from "../Card.svelte";
 
+  const emptyEval = Promise.resolve({ result: "", stdout: [], stderr: [] });
+  const shortcuts = [
+    { key: "Alt-Enter", mac: "Ctrl-Enter" },
+    { key: "Alt-r", mac: "Ctrl-r" },
+    { key: "Alt-w", mac: "Ctrl-w" },
+  ];
+
   const keymaps = keymap.of([
     {
-      key: "Alt-Enter",
+      ...shortcuts[0],
       run: () => {
         remoteEval();
         return true;
       },
     },
     {
-      key: "Alt-r",
+      ...shortcuts[1],
       run: () => {
         remoteEval();
         return true;
       },
     },
     {
-      key: "Alt-w",
+      ...shortcuts[2],
       run: () => {
-        evalResult = null;
+        evalResult = emptyEval;
         return true;
       },
     },
@@ -39,9 +46,19 @@
 
   export let evalResult: Promise<ScriptResult>;
 
+  const shortcutsLabel = shortcutsDescription();
   let sample = "";
   let selectedEngine: string = NO_ENGINE;
   let scriptBody = "";
+
+  function shortcutsDescription() {
+    const platform = navigator.platform.toUpperCase();
+    if (platform.indexOf('MAC') >= 0) {
+      return `${shortcuts[0].mac} or ${shortcuts[1].mac} (to run) | ${shortcuts[2].mac} (to clean)`;
+    } else {
+      return `${shortcuts[0].key} or ${shortcuts[1].key} (to run) | ${shortcuts[2].key} (to clean)`;
+    }
+  }
 
   function handleChangeEngine() {
     scriptBody = "";
@@ -49,7 +66,7 @@
   }
 
   function remoteEval() {
-    evalResult = Promise.resolve({ result: "", stdout: [], stderr: [] });
+    evalResult = emptyEval;
     if (scriptBody) {
       evalResult = engineEval(selectedEngine, scriptBody);
     }
@@ -63,6 +80,7 @@
     <span class="engine">Engine:</span>
     <EngineSelector bind:selectedEngine on:change={handleChangeEngine} />
     <button id="send-button" type="button" on:click={remoteEval}>&#9654; Execute</button>
+    <span class="shortcuts">{shortcutsLabel}</span>
 
     <div class="pulled-right">
       <SampleSelector bind:scriptBody {sample} {selectedEngine} />
@@ -70,7 +88,7 @@
   </div>
 
   <div slot="content">
-    {#if selectedEngine && selectedEngine != NO_ENGINE}
+    {#if selectedEngine && selectedEngine !== NO_ENGINE}
       <CodeMirror
         bind:value={scriptBody}
         lang={langByEngine(selectedEngine)}
@@ -98,6 +116,10 @@
   }
 
   .engine {
+    margin-left: 20px;
+  }
+
+  .shortcuts {
     margin-left: 20px;
   }
 
