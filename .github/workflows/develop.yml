@@ -37,4 +37,3 @@ jobs:
         with:
           gradle-version: wrapper
           arguments: clean spotlessCheck testCodeCoverageReport sonar
-#          arguments: clean spotlessCheck testCodeCoverageReport sonar :jweb-console-api:publishAllPublicationsToSonatypeRepository
