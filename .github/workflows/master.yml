@@ -36,7 +36,7 @@ jobs:
           SONATYPE_PASS: ${{ secrets.SONATYPE_PASS }}
         with:
           gradle-version: wrapper
-          arguments: clean spotlessCheck release
+          arguments: clean spotlessCheck release -Prelease.useAutomaticVersion=true
 
   release:
     name: Create Release Tag
