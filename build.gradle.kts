@@ -72,6 +72,11 @@ configure<ReleaseExtension> {
     }
 }
 
+tasks.sonar {
+    dependsOn(":testCodeCoverageReport")
+}
+
 tasks.afterReleaseBuild {
-    dependsOn(":jweb-console-api:publish")
+//    dependsOn(":sonar", ":publish")
+    dependsOn(":sonar")
 }
