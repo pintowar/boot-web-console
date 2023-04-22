@@ -6,7 +6,7 @@ on:
       - 'release/**'
 
 env:
-  JAVA_VERSION: '8'
+  JAVA_VERSION: '11'
   JAVA_DISTRO: 'adopt'
 
 jobs:
