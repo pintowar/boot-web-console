@@ -1,4 +1,4 @@
-name: SudoScan Develop CI
+name: JWebConsole Develop CI
 on:
   push:
     # Sequence of patterns matched against refs/heads
@@ -6,7 +6,7 @@ on:
       - 'develop'
 
 env:
-  JAVA_VERSION: '11'
+  JAVA_VERSION: '8'
   JAVA_DISTRO: 'adopt'
 
 jobs:

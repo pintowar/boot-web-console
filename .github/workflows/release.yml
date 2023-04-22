@@ -1,0 +1,67 @@
+name: JWebConsole Release CI
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - 'release/**'
+
+env:
+  JAVA_VERSION: '8'
+  JAVA_DISTRO: 'adopt'
+
+jobs:
+  gradle_release_build:
+    name: Gradle Release Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRO }}
+
+      - name: Running gradle task
+        uses: gradle/gradle-build-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
+          SONATYPE_PASS: ${{ secrets.SONATYPE_PASS }}
+        with:
+          gradle-version: wrapper
+          arguments: clean spotlessCheck testCodeCoverageReport sonar publishAllPublicationsToSonatypeRepository
+
+  release:
+    name: Create Draft Tag
+    runs-on: ubuntu-latest
+    needs: gradle_release_build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get current version
+        id: get_current_version
+        run: |
+          BRANCH_VERSION=$(git branch --show-current | sed -E -e 's/release\/(.*)/\1/g')
+          CURRENT_VERSION=$(cat gradle.properties | grep version | sed -E -e 's/version=(.*)/\1/g' )
+          echo "::set-output name=current_version::CURRENT_VERSION"
+          echo "::set-output name=branch_version::BRANCH_VERSION"
+
+      - name: Draft Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(steps.get_current_version.outputs.current_version, steps.get_current_version.outputs.branch_version)
+        with:
+          repository: ${{ github.repository }}
+          tag_name: ${{ steps.get_latest_tag.outputs.latest_tag }}
+          draft: true
+          prerelease: true
+          token: ${{ secrets.GITHUB_TOKEN }}
