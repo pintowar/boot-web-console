@@ -53,16 +53,15 @@ jobs:
         run: |
           BRANCH_VERSION=$(git branch --show-current | sed -E -e 's/release\/(.*)/\1/g')
           CURRENT_VERSION=$(cat gradle.properties | grep version | sed -E -e 's/version=(.*)/\1/g' )
-          echo "::set-output name=current_version::$CURRENT_VERSION"
-          echo "::set-output name=branch_version::$BRANCH_VERSION"
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "branch_version=$BRANCH_VERSION" >> $GITHUB_OUTPUT
 
       - name: Draft Release
         uses: softprops/action-gh-release@v1
         if: startsWith(steps.get_current_version.outputs.current_version, steps.get_current_version.outputs.branch_version)
         with:
           repository: ${{ github.repository }}
-          tag_name: ${{ steps.get_current_version.outputs.current_version }}
+          name: v${{ steps.get_current_version.outputs.current_version }}
           target_commitish: ${{ github.sha }}
           draft: true
-          prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
