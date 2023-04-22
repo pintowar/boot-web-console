@@ -1,0 +1,10 @@
+micronaut:
+  application:
+    name: Sample JWeb Console
+netty:
+  default:
+    allocator:
+      max-order: 3
+jweb:
+  console:
+    enabled: true

@@ -1,19 +1,28 @@
-type EngineEvalArgs = {
-    engine: string
-    data: FormData
-    onSuccess: (arg: any) => void
-    onFinally: () => void
+import type { ScriptResult } from "./interfaces";
+
+export async function engineEval(engine: string, scriptBody: string): Promise<ScriptResult> {
+  const data = new FormData();
+  data.append("script", scriptBody);
+
+  const resp = await fetch(`/console/${engine}/eval`, {
+    method: "POST",
+    body: data,
+  });
+  const scriptResult = (await resp.json()) as ScriptResult;
+  return scriptResult;
 }
 
-export const engineEval = ({engine, data, onSuccess, onFinally}: EngineEvalArgs) => {
-    return fetch(`/console/${engine}/eval`, { method: "POST", body: data })
-        .then(response => response.json())
-        .then(onSuccess)
-        .finally(onFinally);
+export async function listEngines(): Promise<string[]> {
+  const resp = await fetch(`/console/engines`);
+  const engines = (await resp.json()) as string[];
+  return engines;
 }
 
-export const listEngines = (onSuccess: (arg: string[]) => void) => {
-    return fetch(`/console/engines`)
-        .then(response => response.json())
-        .then(onSuccess);
+export async function sampleSelect(sample: string): Promise<string> {
+  if (sample) {
+    const resp = await fetch(sample);
+    return await resp.text();
+  } else {
+    return "";
+  }
 }

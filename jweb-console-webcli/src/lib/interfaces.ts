@@ -1,5 +1,5 @@
 export interface ScriptResult {
-    result: string
-    stdout: string[]
-    stderr: string[]
+  result: string;
+  stdout: string[];
+  stderr: string[];
 }

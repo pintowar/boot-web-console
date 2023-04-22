@@ -1,9 +1,12 @@
 import net.researchgate.release.ReleaseExtension
 
 plugins {
-    id("jweb-console.base")
+    base
+    id("idea")
+    id("jacoco-report-aggregation")
     id("net.researchgate.release")
     id("org.sonarqube")
+    id("com.diffplug.spotless")
 }
 
 allprojects {
@@ -11,43 +14,42 @@ allprojects {
     description = "jweb-console"
 }
 
-tasks {
-    register<JacocoReport>("codeCoverageReport") {
-        group = "verification"
-        description = "Run tests and merge all jacoco reports"
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
 
-        val codeCoverageTask = this
-        // If a subproject applies the 'jacoco' plugin, add the result it to the report
-        subprojects {
-            val subproject = this
-            subproject.plugins.withType<JacocoPlugin>().configureEach {
-                val extensions = subproject.tasks.matching {
-                    val hasJacoco = it.extensions.findByType<JacocoTaskExtension>() != null
-                    hasJacoco && !it.name.contains("native", ignoreCase = true)
-                }
+dependencies {
+    allStarterSubModules.forEach(::jacocoAggregation)
+}
 
-                extensions.forEach { codeCoverageTask.dependsOn(it) }
-
-                extensions.configureEach {
-                    val testTask = this
-                    sourceSets(subproject.sourceSets.main.get())
-                    executionData(testTask)
-                }
-            }
+reporting {
+    reports {
+        val testCodeCoverageReport by creating(JacocoCoverageReport::class) {
+            testType.set(TestSuiteType.UNIT_TEST)
         }
+    }
+}
 
-        reports {
-            xml.required.set(true)
-            html.required.set(true)
-            csv.required.set(true)
-        }
+tasks.check {
+    dependsOn(tasks.named<JacocoReport>("testCodeCoverageReport"))
+}
+
+spotless {
+    format("misc") {
+        target("**/.gitignore", "**/*.gradle", "README.md")
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
     }
 }
 
 sonarqube {
     properties {
-        val jacocoReportPath = "${project.buildDir.absolutePath}/reports/jacoco/codeCoverageReport"
         val sonarToken = project.findProperty("sonar.token")?.toString() ?: System.getenv("SONAR_TOKEN")
+        val jacocoReportPath = "${project.buildDir.absolutePath}/reports/jacoco/testCodeCoverageReport"
+        val lcovReportPath = "${project("jweb-console-webcli").projectDir.absolutePath}/coverage/"
+
         property("sonar.sourceEncoding", "UTF-8")
         property("sonar.organization", "pintowar")
         property("sonar.projectName", "jweb-console")
@@ -57,8 +59,9 @@ sonarqube {
         property("sonar.login", sonarToken)
         property("sonar.verbose", true)
         property("sonar.github.repository", "pintowar/jweb-console")
-        property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/codeCoverageReport.xml")
-        property("sonar.exclusions", "**/sample/*.java")
+        property("sonar.exclusions", "*/src/test/**,**/sample/*.java")
+        property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/testCodeCoverageReport.xml")
+        property("sonar.javascript.lcov.reportPaths", "$lcovReportPath/lcov.info")
     }
 }
 
@@ -69,6 +72,11 @@ configure<ReleaseExtension> {
     }
 }
 
+tasks.sonar {
+    dependsOn(":testCodeCoverageReport")
+}
+
 tasks.afterReleaseBuild {
-    dependsOn(":jweb-console-api:publish")
+//    dependsOn(":sonar", ":publish")
+    dependsOn(":sonar")
 }
