@@ -61,7 +61,7 @@ jobs:
         if: startsWith(steps.get_current_version.outputs.current_version, steps.get_current_version.outputs.branch_version)
         with:
           repository: ${{ github.repository }}
-          tag_name: ${{ steps.get_latest_tag.outputs.latest_tag }}
+          tag_name: ${{ steps.get_current_version.outputs.current_version }}
           draft: true
           prerelease: true
           token: ${{ secrets.GITHUB_TOKEN }}
