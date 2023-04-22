@@ -59,7 +59,7 @@ sonarqube {
         property("sonar.login", sonarToken)
         property("sonar.verbose", true)
         property("sonar.github.repository", "pintowar/jweb-console")
-        property("sonar.exclusions", "**/sample/*.java")
+        property("sonar.exclusions", "*/src/test/**,**/sample/*.java")
         property("sonar.coverage.jacoco.xmlReportPaths", "$jacocoReportPath/testCodeCoverageReport.xml")
         property("sonar.javascript.lcov.reportPaths", "$lcovReportPath/lcov.info")
     }
