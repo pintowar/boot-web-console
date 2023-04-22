@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/svelte";
-import userEvent from "@testing-library/user-event";
+import { render } from "@testing-library/svelte";
 import App from "../App.svelte";
 
 describe("App.svelte", () => {
