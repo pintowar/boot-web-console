@@ -34,9 +34,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
           SONATYPE_PASS: ${{ secrets.SONATYPE_PASS }}
+          OSSRH_KEYID: ${{ secrets.OSSRH_KEYID }}
+          OSSRH_SECRET_KEY: ${{ secrets.OSSRH_SECRET_KEY }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         with:
           gradle-version: wrapper
-          arguments: clean spotlessCheck sonar publishAllPublicationsToSonatypeRepository
+          arguments: clean spotlessCheck sonar publish
 
   draft_release:
     name: Create Draft Tag
