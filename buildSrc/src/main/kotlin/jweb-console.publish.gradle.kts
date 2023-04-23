@@ -1,6 +1,7 @@
 plugins {
     id("jweb-console.base")
     `maven-publish`
+    signing
 }
 
 publishing {
@@ -23,8 +24,10 @@ publishing {
             artifact(tasks["javadocJar"])
 
             pom {
-                name.set("JWeb Console")
-                description.set("Web Scripting Console for Java Web Applications")
+                name.set(project.name.trim().split("-").joinToString(" ") {
+                    it.replaceFirstChar(Char::uppercase)
+                })
+                description.set(project.description)
                 url.set("https://github.com/pintowar/jweb-console")
                 licenses {
                     license {
@@ -47,4 +50,8 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    sign(publishing.publications["maven"])
 }

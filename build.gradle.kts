@@ -11,7 +11,7 @@ plugins {
 
 allprojects {
     group = "io.github.pintowar"
-    description = "jweb-console"
+    description = "Web Scripting Console for Java Web Applications"
 }
 
 repositories {
@@ -77,6 +77,5 @@ tasks.sonar {
 }
 
 tasks.afterReleaseBuild {
-//    dependsOn(":sonar", ":publish")
-    dependsOn(":sonar")
+    dependsOn(":sonar", ":publish")
 }
