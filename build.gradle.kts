@@ -73,7 +73,7 @@ configure<ReleaseExtension> {
 }
 
 tasks.sonar {
-    dependsOn(":testCodeCoverageReport")
+    dependsOn(":testCodeCoverageReport", ":jweb-console-webcli:testCodeCoverageReport")
 }
 
 tasks.afterReleaseBuild {
