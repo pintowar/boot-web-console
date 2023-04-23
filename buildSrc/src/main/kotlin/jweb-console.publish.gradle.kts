@@ -53,9 +53,8 @@ publishing {
 }
 
 signing {
-    val signingKeyId = project.findProperty("signing.keyId")?.toString() ?: System.getenv("OSSRH_KEYID")
     val signingKey = project.findProperty("signing.secretKey")?.toString() ?: System.getenv("OSSRH_SECRET_KEY")
     val signingPassword = project.findProperty("signing.password")?.toString() ?: System.getenv("OSSRH_PASSWORD")
-    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+    useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications["maven"])
 }
