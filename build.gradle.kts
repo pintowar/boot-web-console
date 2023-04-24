@@ -11,7 +11,7 @@ plugins {
 
 allprojects {
     group = "io.github.pintowar"
-    description = "jweb-console"
+    description = "Web Scripting Console for Java Web Applications"
 }
 
 repositories {
@@ -73,10 +73,9 @@ configure<ReleaseExtension> {
 }
 
 tasks.sonar {
-    dependsOn(":testCodeCoverageReport")
+    dependsOn(":testCodeCoverageReport", ":jweb-console-webcli:testCodeCoverageReport")
 }
 
 tasks.afterReleaseBuild {
-//    dependsOn(":sonar", ":publish")
-    dependsOn(":sonar")
+    dependsOn(":sonar") // Maybe also :publish it? (need do gpg sign in gh action)
 }
