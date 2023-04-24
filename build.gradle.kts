@@ -77,5 +77,5 @@ tasks.sonar {
 }
 
 tasks.afterReleaseBuild {
-    dependsOn(":sonar", ":publish")
+    dependsOn(":sonar") // Maybe also :publish it? (need do gpg sign in gh action)
 }

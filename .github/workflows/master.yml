@@ -24,14 +24,6 @@ jobs:
       - name: Setting up Git
         run: git config user.email "${{ github.actor }}@users.noreply.github.com" && git config user.name "Github Actions"
 
-      - name: Install gpg secret key
-        id: install-secret-key
-        run: |
-          # Install gpg secret key
-          cat <(echo -e "${{ secrets.OSSRH_SECRET_KEY }}") | gpg --batch --import
-          # Verify gpg secret key
-          gpg --list-secret-keys --keyid-format LONG
-
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -45,8 +37,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
           SONATYPE_PASS: ${{ secrets.SONATYPE_PASS }}
-          OSSRH_SECRET_KEY: ${{ secrets.OSSRH_SECRET_KEY }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         with:
           gradle-version: wrapper
           arguments: clean spotlessCheck release -Prelease.useAutomaticVersion=true
